@@ -18,6 +18,11 @@ function moverFazendeiro(tecla) {
 
     let x = parseInt(fazendeiro.style.left);
 
-    if (tecla === "ArrowLeft")   fazendeiro.style.left = Math.max(0, x - 10) + "px";
-    if (tecla === "ArrowRight")  fazendeiro.style.left = Math.min(560, x + 10) + "px";
+    if (tecla === "ArrowLeft") {
+        fazendeiro.style.left = Math.max(0, x - 10) + "px";
+    }
+
+    if (tecla === "ArrowRight") {
+        fazendeiro.style.left = Math.min(560, x + 10) + "px";
+    }
 }
