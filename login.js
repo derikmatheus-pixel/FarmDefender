@@ -53,3 +53,7 @@ function login() {
     localStorage.setItem("usuarioLogadoFarm", nick);
     window.location.href = "jogo.html";
 }
+
+function abrirRanking() {
+    window.location.href = "ranking.html";
+}
