@@ -324,3 +324,38 @@ button.secundario {
 .btn-voltar:hover {
     transform: scale(1.05);
 }
+
+#cenario {
+    width: 600px;
+    height: 400px;
+    background: url("cenario.png");
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Fazendeiro */
+#player {
+    width: 40px;
+    position: absolute;
+    top: 300px;
+    transition: 0.05s;
+}
+
+#player.mirando {
+    transform: rotate(-20deg);
+}
+
+/* Corvos */
+.corvo {
+    width: 45px;
+    position: absolute;
+}
+
+/* Tiros */
+.tiro {
+    width: 4px;
+    height: 12px;
+    background: yellow;
+    position: absolute;
+}
