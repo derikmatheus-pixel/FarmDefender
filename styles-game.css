@@ -32,4 +32,43 @@
     width: 600px;
     height: 380px;
     background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(255
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.corvo {
+    position: absolute;
+    width: 45px;
+    cursor: pointer;
+}
+
+#player {
+    position: absolute;
+    width: 40px;
+}
+
+#btnlogout {
+    padding: 10px 30px;
+    font-size: 17px;
+    background: #b30000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#btnlogout:hover {
+    background: #e00000;
+}
+
+@media(max-width: 650px) {
+    .game-wrapper {
+        width: 90%;
+    }
+    #cenario {
+        width: 100%;
+        height: 300px;
+    }
+}
