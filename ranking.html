@@ -2,17 +2,31 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Ranking Global - Farm Defender</title>
+    <title>Ranking - Farm Defender</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="login-bg">
 
-<h1>Ranking Global</h1>
+<div class="ranking-container">
 
-<div id="rankingLista"></div>
+    <h1 class="ranking-title">Ranking</h1>
 
-<!-- Firebase SDK -->
+    <table class="ranking-tabela">
+        <thead>
+            <tr>
+                <th>Posição</th>
+                <th>Nick</th>
+                <th>Pontos</th>
+            </tr>
+        </thead>
+        <tbody id="rankingLista"></tbody>
+    </table>
+
+    <button onclick="window.location.href='menu.html'" class="btn-voltar">Voltar</button>
+</div>
+
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js"></script>
 
@@ -21,10 +35,14 @@
 
 <script>
 carregarRanking(lista => {
-    const div = document.getElementById("rankingLista");
+    const tbody = document.getElementById("rankingLista");
 
-    div.innerHTML = lista.map((jogador, i) => `
-        <p><strong>${i+1}º</strong> - ${jogador.nick}: ${jogador.pontos} pts</p>
+    tbody.innerHTML = lista.map((jogador, index) => `
+        <tr>
+            <td>${index + 1}º</td>
+            <td>${jogador.nick}</td>
+            <td>${jogador.pontos}</td>
+        </tr>
     `).join("");
 });
 </script>
