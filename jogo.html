@@ -2,22 +2,31 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Farm Defender - Jogo</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <div class="container" style="flex-direction: column;">
+
+    <div class="container">
+
+        <!-- HUD -->
         <div id="hud">
             <span id="hudPontos">Pontos: 0</span>
             <span id="hudVidas">Vidas: 3</span>
         </div>
 
+        <!-- CENÁRIO PRINCIPAL -->
         <div id="cenario"></div>
 
+        <!-- BOTÃO SAIR -->
         <button id="btnlogout">Sair</button>
+
     </div>
 
     <script src="firebase.js"></script>
     <script src="jogo.js"></script>
+
 </body>
 </html>
