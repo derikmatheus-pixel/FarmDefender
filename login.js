@@ -1,20 +1,48 @@
-const inputNick = document.getElementById("inputNick");
-const erroLogin = document.getElementById("erroLogin");
-const btnEntrar = document.getElementById("btnEntrar");
+function abrirCadastro() {
+    document.getElementById("loginForm").classList.add("hidden");
+    document.getElementById("cadastroForm").classList.remove("hidden");
+}
 
-btnEntrar.onclick = () => {
-    const nick = inputNick.value.trim();
+function fecharCadastro() {
+    document.getElementById("cadastroForm").classList.add("hidden");
+    document.getElementById("loginForm").classList.remove("hidden");
+}
 
-    if (!nick) {
-        erroLogin.style.display = "block";
+function cadastrar() {
+    const nick = document.getElementById("nickNovo").value.trim();
+    const senha = document.getElementById("senhaNova").value.trim();
+
+    if (nick === "" || senha === "") {
+        alert("Preencha todos os campos.");
         return;
     }
 
-    erroLogin.style.display = "none";
+    if (localStorage.getItem(nick)) {
+        alert("Este nick já está cadastrado!");
+        return;
+    }
 
-    // salva usuário logado
+    localStorage.setItem(nick, senha);
+    alert("Conta criada com sucesso!");
+    fecharCadastro();
+}
+
+function login() {
+    const nick = document.getElementById("nickLogin").value.trim();
+    const senha = document.getElementById("senhaLogin").value.trim();
+
+    if (nick === "" || senha === "") {
+        alert("Preencha o login e a senha.");
+        return;
+    }
+
+    const senhaSalva = localStorage.getItem(nick);
+
+    if (!senhaSalva || senhaSalva !== senha) {
+        alert("Nick ou senha incorretos!");
+        return;
+    }
+
     localStorage.setItem("usuarioLogadoFarm", nick);
-
-    // vai para o menu
-    window.location.href = "menu.html";
-};
+    window.location.href = "jogo.html";
+}
