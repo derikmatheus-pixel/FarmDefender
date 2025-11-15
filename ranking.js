@@ -1,28 +1,29 @@
-function carregarRanking() {
-    const tabela = document.querySelector("#rankingTabela tbody");
-    let lista = JSON.parse(localStorage.getItem("farm_rank")) || [];
+// Salvar pontuação global
+function salvarPontuacao(nick, pontos) {
+    const ref = db.ref("ranking/" + nick);
 
-    // Ordena do maior para o menor
-    lista.sort((a, b) => b.pontos - a.pontos);
-
-    // Mantém apenas os 10 melhores
-    lista = lista.slice(0, 10);
-
-    tabela.innerHTML = "";
-
-    lista.forEach(item => {
-        tabela.innerHTML += `
-            <tr>
-                <td>${item.nick}</td>
-                <td>${item.pontos}</td>
-            </tr>
-        `;
+    ref.set({
+        nick: nick,
+        pontos: pontos,
+        timestamp: Date.now()
     });
 }
 
-document.getElementById("btnVoltar").onclick = () => {
-    window.location.href = "menu.html";
-};
+// Carregar ranking global (ordenado)
+function carregarRanking(callback) {
+    db.ref("ranking")
+      .orderByChild("pontos")
+      .limitToLast(100) // buscar top 100
+      .once("value", snapshot => {
 
+        const lista = [];
 
-carregarRanking();
+        snapshot.forEach(child => {
+            lista.push(child.val());
+        });
+
+        lista.reverse(); // inverter para ficar maior → menor
+
+        callback(lista);
+    });
+}
