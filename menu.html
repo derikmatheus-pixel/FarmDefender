@@ -9,23 +9,22 @@
 <body>
 
     <div class="menu-container">
+        <div class="menu-card">
 
-        <img src="logo-menu.png" class="menu-logo" alt="Farm Defender Logo">
+            <img src="logo.png" alt="Farm Defender Logo" class="menu-logo">
 
-        <h2 class="menu-titulo">Bem-vindo(a)</h2>
-        <h3 id="menuJogador"></h3>
+            <h2 class="menu-titulo">Bem-vindo(a)</h2>
+            <p id="nomeJogador" class="menu-jogador"></p>
 
-        <div class="menu-box">
-
-            <button class="btn-menu" id="jogar">Jogar</button>
-            <button class="btn-menu" id="ranking">Ranking</button>
-            <button class="btn-menu sair" id="sair">Sair</button>
+            <div class="menu-botoes">
+                <button onclick="jogar()">Jogar</button>
+                <button onclick="ranking()">Ranking</button>
+                <button class="btn-sair" onclick="sair()">Sair</button>
+            </div>
 
         </div>
-
     </div>
 
     <script src="menu.js"></script>
 </body>
 </html>
-
