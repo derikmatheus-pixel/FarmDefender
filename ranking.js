@@ -1,23 +1,34 @@
-function salvarPontuacao(nick, pontos) {
-    const ref = db.ref("ranking/" + nick);
+// Carregar ranking global
+function carregarRanking(lista) {
 
-    ref.set({
-        nick: nick,
-        pontos: pontos,
-        timestamp: Date.now()
-    });
+    const div = document.getElementById("rankingLista");
+
+    div.innerHTML = lista.map((jogador, i) =>
+        `
+        <table class="rankLinha">
+            <tr>
+                <td>${i + 1}</td>
+                <td>${jogador.nick}</td>
+                <td>${jogador.pontos}</td>
+            </tr>
+        </table>
+        `
+    ).join("");
 }
 
-function carregarRanking(callback) {
-    db.ref("ranking")
-      .orderByChild("pontos")
-      .limitToLast(100)
-      .once("value", snapshot => {
+// Buscar do Firebase
+db.ref("ranking")
+    .orderByChild("pontos")
+    .limitToLast(100)
+    .once("value", snapshot => {
 
         const lista = [];
-        snapshot.forEach(child => lista.push(child.val()));
+
+        snapshot.forEach(child => {
+            lista.push(child.val());
+        });
+
         lista.reverse();
 
-        callback(lista);
+        carregarRanking(lista);
     });
-}
