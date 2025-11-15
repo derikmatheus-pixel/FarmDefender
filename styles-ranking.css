@@ -26,8 +26,22 @@ body {
 
 /* CARD EM CIMA DO QUADRO */
 .ranking-card {
-    /* ... resto igual ... */
-    transform: translateY(-40px); /* se precisar, teste -35, -30, -45, etc. */
+    /* ajuste fino de tamanho para caber no quadro de madeira */
+    width: 320px;              /* pode testar 300 / 330 se precisar */
+    max-width: 90vw;
+    padding: 18px 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    /* sem fundo, o quadro é o fundo */
+    background: transparent;
+    text-align: center;
+
+    /* ajuste vertical, se perceber que está muito alto/baixo */
+    transform: translateY(-10px);   /* aumente/diminua esse valor se precisar */
 }
 
 /* TÍTULOS */
@@ -46,20 +60,12 @@ body {
 }
 
 /* TABELA */
-/* CAIXA DA TABELA — ESCURECE UM POUCO O QUADRO */
 .ranking-table-wrapper {
     width: 100%;
-    max-height: 190px;                 /* espaço para scroll com top 50 */
-    overflow-y: auto;                  /* scroll interno quando passar do tamanho */
-
-    padding: 8px 10px;
-    margin-top: 6px;
-
-    background: rgba(0, 0, 0, 0.12);   /* deixa o quadro um pouco mais escuro */
-    border-radius: 10px;
+    max-height: 220px;          /* garante que tudo caiba dentro do quadro */
+    overflow-y: auto;           /* se passar, aparece scroll dentro do quadro */
 }
 
-/* TABELA DENTRO DA CAIXA */
 .ranking-table {
     width: 100%;
     border-collapse: collapse;
@@ -69,34 +75,14 @@ body {
 }
 
 .ranking-table thead th {
-    padding: 4px 0;
+    padding: 4px 6px;
     font-weight: bold;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(91, 43, 11, 0.4);
 }
 
 .ranking-table tbody td {
-    padding: 3px 0;
+    padding: 3px 4px;
 }
-
-/* larguras e alinhamento das colunas */
-.col-posicao {
-    width: 20%;
-    text-align: center;
-}
-.col-jogador {
-    width: 50%;
-    text-align: left;
-}
-.col-pontos {
-    width: 30%;
-    text-align: center;
-}
-
-/* linhas zebradas, bem suaves */
-.ranking-table tbody tr:nth-child(odd) td {
-    background-color: rgba(255, 255, 255, 0.08);
-}
-
 
 /* pequenas larguras de colunas para ficar bem organizado */
 .col-posicao {
