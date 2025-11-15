@@ -5,35 +5,39 @@
     <title>Farm Defender - Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
-<div class="container">
+<body class="login-bg">
 
-    <div id="telaLogin" class="tela">
-        <input type="text" id="loginNick" placeholder="Nick">
-        <input type="password" id="loginSenha" placeholder="Senha">
-<img src="logo.png" class="login-logo" alt="Farm Defender Logo">
+    <!-- LOGO FIXA NO TOPO -->
+    <img src="logo.png" class="login-logo" alt="Farm Defender Logo">
 
-        <button id="btnEntrar">Entrar</button>
-        <p class="erro" id="loginErro"></p>
+    <div class="container">
 
-        <button id="btnAbrirCadastro" class="secundario">Criar conta</button>
+        <!-- TELA LOGIN -->
+        <div id="telaLogin" class="tela">
+            <input type="text" id="loginNick" placeholder="Nick">
+            <input type="password" id="loginSenha" placeholder="Senha">
+
+            <button id="btnEntrar">Entrar</button>
+            <p class="erro" id="loginErro"></p>
+
+            <button id="btnAbrirCadastro" class="secundario">Criar conta</button>
+        </div>
+
+        <!-- TELA CADASTRO -->
+        <div id="telaCadastro" class="tela" style="display:none;">
+            <h2>Criar Conta</h2>
+            <input type="text" id="cadNick" placeholder="Nick">
+            <input type="password" id="cadSenha" placeholder="Senha">
+
+            <button id="btnCadastrar">Cadastrar</button>
+            <p class="erro" id="cadErro"></p>
+
+            <button id="btnVoltarLogin" class="secundario">Voltar</button>
+        </div>
+
     </div>
 
-    <div id="telaCadastro" class="tela" style="display:none;">
-        <h2>Criar Conta</h2>
-        <input type="text" id="cadNick" placeholder="Nick">
-        <input type="password" id="cadSenha" placeholder="Senha">
-
-        <button id="btnCadastrar">Cadastrar</button>
-        <p class="erro" id="cadErro"></p>
-
-        <button id="btnVoltarLogin" class="secundario">Voltar</button>
-    </div>
-
-</div>
-
-<script src="login.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
-<body class="login-bg">
