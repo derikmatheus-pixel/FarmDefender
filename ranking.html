@@ -2,27 +2,32 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Ranking - Farm Defender</title>
+    <title>Ranking Global - Farm Defender</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
-<div class="container">
-    <h1>Ranking</h1>
+<body class="login-bg">
 
-    <table id="rankingTabela">
-        <thead>
-            <tr>
-                <th>Nick</th>
-                <th>Pontos</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<h1>Ranking Global</h1>
 
-    <button id="btnVoltar">Voltar</button>
-</div>
+<div id="rankingLista"></div>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js"></script>
+
+<script src="firebase.js"></script>
 <script src="ranking.js"></script>
+
+<script>
+carregarRanking(lista => {
+    const div = document.getElementById("rankingLista");
+
+    div.innerHTML = lista.map((jogador, i) => `
+        <p><strong>${i+1}º</strong> - ${jogador.nick}: ${jogador.pontos} pts</p>
+    `).join("");
+});
+</script>
+
 </body>
 </html>
