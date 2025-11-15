@@ -1,4 +1,3 @@
-// Salvar pontuação global
 function salvarPontuacao(nick, pontos) {
     const ref = db.ref("ranking/" + nick);
 
@@ -9,20 +8,15 @@ function salvarPontuacao(nick, pontos) {
     });
 }
 
-// Carregar ranking global (ordenado)
 function carregarRanking(callback) {
     db.ref("ranking")
       .orderByChild("pontos")
-      .limitToLast(100) // buscar top 100
+      .limitToLast(100)
       .once("value", snapshot => {
 
         const lista = [];
-
-        snapshot.forEach(child => {
-            lista.push(child.val());
-        });
-
-        lista.reverse(); // inverter para ficar maior → menor
+        snapshot.forEach(child => lista.push(child.val()));
+        lista.reverse();
 
         callback(lista);
     });
