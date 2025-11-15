@@ -1,40 +1,34 @@
-// Dimensões do corvo (iguais ao CSS)
-// Dimensões do corvo (mesmo do CSS)
 const CORVO_LARGURA = 48;
 const CORVO_ALTURA  = 48;
 
-// Arquivos das 3 imagens do corvo
 const CORVO_FRAMES = [
     "corvo1.png",
     "corvo2.png",
     "corvo3.png"
 ];
 
-let corvos = [];            // lista de corvos ativos
-let corvoFrameGlobal = 0;   // frame atual da animação
+let corvos = [];
+let corvoFrameGlobal = 0;
 
-// Cria um novo corvo
 function spawnCorvo() {
-    if (typeof rodando !== "undefined" && !rodando) return;
-
     const cenario = document.getElementById("cenario");
-
-    // agora é uma IMG
     const corvo = document.createElement("img");
+
     corvo.classList.add("corvo");
-    corvo.src = CORVO_FRAMES[0]; // começa no primeiro frame
+    corvo.src = CORVO_FRAMES[0];
 
     const maxX = cenario.clientWidth - CORVO_LARGURA;
     const posX = Math.random() * maxX;
 
     corvo.style.left = posX + "px";
-    corvo.style.top  = -CORVO_ALTURA + "px"; // começa acima da tela
+    corvo.style.top  = -CORVO_ALTURA + "px";
 
     corvo.addEventListener("click", () => matarCorvo(corvo));
 
     cenario.appendChild(corvo);
     corvos.push(corvo);
 }
+
 
 // Move todos os corvos para baixo
 function moverCorvos() {
