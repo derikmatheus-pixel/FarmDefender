@@ -1,42 +1,49 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const tabela = document.getElementById("tabelaRanking");
-    const btnVoltar = document.getElementById("btnVoltarMenu");
+// LIMITE DE JOGADORES NO RANK
+const LIMITE_RANKING = 5;
 
-    if (btnVoltar) {
-        btnVoltar.addEventListener("click", function () {
-            window.location.href = "menu.html";
+const tabelaRanking = document.getElementById("tabelaRanking");
+
+// referência no Firebase (ajuste se o seu nó tiver outro nome)
+const rankingRef = firebase.database().ref("ranking");
+
+// busca os dados ordenando por pontos
+rankingRef.orderByChild("pontos").on("value", (snapshot) => {
+    const lista = [];
+
+    snapshot.forEach((child) => {
+        const dados = child.val();
+        lista.push({
+            jogador: dados.jogador,
+            pontos: dados.pontos
         });
-    }
+    });
 
-    carregarRanking(function (lista) {
-        tabela.innerHTML = "";
+    // ordena: maior pontuação primeiro
+    lista.sort((a, b) => b.pontos - a.pontos);
 
-        if (!lista || lista.length === 0) {
-            const tr = document.createElement("tr");
-            const td = document.createElement("td");
-            td.colSpan = 3;
-            td.textContent = "Nenhuma pontuação registrada ainda.";
-            tr.appendChild(td);
-            tabela.appendChild(tr);
-            return;
-        }
+    // pega só o TOP 5
+    const top5 = lista.slice(0, LIMITE_RANKING);
 
-        lista.forEach(function (item, index) {
-            const tr = document.createElement("tr");
+    // limpa a tabela
+    tabelaRanking.innerHTML = "";
 
-            const tdPosicao = document.createElement("td");
-            const tdJogador = document.createElement("td");
-            const tdPontos = document.createElement("td");
+    // monta as linhas
+    top5.forEach((item, index) => {
+        const tr = document.createElement("tr");
 
-            tdPosicao.textContent = index + 1;
-            tdJogador.textContent = item.nome || "Jogador";
-            tdPontos.textContent = item.pontos || 0;
+        const tdPosicao = document.createElement("td");
+        tdPosicao.textContent = index + 1;
 
-            tr.appendChild(tdPosicao);
-            tr.appendChild(tdJogador);
-            tr.appendChild(tdPontos);
+        const tdJogador = document.createElement("td");
+        tdJogador.textContent = item.jogador;
 
-            tabela.appendChild(tr);
-        });
+        const tdPontos = document.createElement("td");
+        tdPontos.textContent = item.pontos;
+
+        tr.appendChild(tdPosicao);
+        tr.appendChild(tdJogador);
+        tr.appendChild(tdPontos);
+
+        tabelaRanking.appendChild(tr);
     });
 });
