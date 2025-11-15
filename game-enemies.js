@@ -1,3 +1,5 @@
+// game-enemies.js
+
 const CORVO_LARGURA = 48;
 const CORVO_ALTURA  = 48;
 
@@ -10,10 +12,14 @@ const CORVO_FRAMES = [
 let corvos = [];
 let corvoFrameGlobal = 0;
 
+// Cria um corvo
 function spawnCorvo() {
-    const cenario = document.getElementById("cenario");
-    const corvo = document.createElement("img");
+    if (!rodando) return;
 
+    const cenario = document.getElementById("cenario");
+    if (!cenario) return;
+
+    const corvo = document.createElement("img");
     corvo.classList.add("corvo");
     corvo.src = CORVO_FRAMES[0];
 
@@ -21,23 +27,31 @@ function spawnCorvo() {
     const posX = Math.random() * maxX;
 
     corvo.style.left = posX + "px";
-    corvo.style.top  = -CORVO_ALTURA + "px";
+    corvo.style.top  = -CORVO_ALTURA + "px"; // começa acima da tela
 
-    corvo.addEventListener("click", () => matarCorvo(corvo));
+    corvo.addEventListener("click", function (e) {
+        e.stopPropagation();
+        matarCorvo(corvo);
+    });
 
     cenario.appendChild(corvo);
     corvos.push(corvo);
 }
 
-
-// Move todos os corvos para baixo
+// Move todos os corvos
 function moverCorvos() {
+    if (!rodando) return;
+
     const cenario = document.getElementById("cenario");
+    if (!cenario) return;
+
     const limiteY = cenario.clientHeight;
 
     for (let i = corvos.length - 1; i >= 0; i--) {
         const corvo = corvos[i];
+
         let y = parseInt(corvo.style.top);
+        if (isNaN(y)) y = -CORVO_ALTURA;
 
         y += 2; // velocidade
         corvo.style.top = y + "px";
@@ -50,8 +64,9 @@ function moverCorvos() {
     }
 }
 
-// Anima os frames do sprite de TODOS os corvos
+// Anima todos os corvos (troca de frame)
 function animarCorvos() {
+    if (!rodando) return;
     if (corvos.length === 0) return;
 
     corvoFrameGlobal = (corvoFrameGlobal + 1) % CORVO_FRAMES.length;
@@ -62,18 +77,17 @@ function animarCorvos() {
     });
 }
 
-// Mata um corvo clicado
+// Quando mata o corvo
 function matarCorvo(corvo) {
-    pontos++;
-    atualizarHUD(); // ou mostrarHUD(), use a sua função de HUD
+    if (!rodando) return;
 
-    corvos = corvos.filter(c => c !== corvo);
+    pontos++;
+    atualizarHUD();
+
+    const idx = corvos.indexOf(corvo);
+    if (idx !== -1) {
+        corvos.splice(idx, 1);
+    }
+
     corvo.remove();
 }
-
-// Chamadas periódicas (deixe isso apenas onde inicia o jogo)
-setInterval(moverCorvos, 16);    // movimento (~60 FPS)
-setInterval(spawnCorvo, 1000);   // novo corvo a cada 1 segundo
-setInterval(animarCorvos, 120); // troca de frame
-
-
