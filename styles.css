@@ -1,7 +1,7 @@
 /* Fundo */
 body {
     margin: 0;
-    background: url("fundo.png") no-repeat center center fixed;
+    background: url("cenario.png") no-repeat center center fixed;
     background-size: cover;
     font-family: Arial, sans-serif;
 }
@@ -163,3 +163,4 @@ input {
         width: 200px;
     }
 }
+
