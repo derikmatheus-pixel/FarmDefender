@@ -35,9 +35,13 @@
 
 .corvo {
     position: absolute;
-    width: 45px;
+    width: 60px;     /* <<< TAMANHO IDEAL */
+    height: auto;
     cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
 }
+
 
 #player {
     position: absolute;
