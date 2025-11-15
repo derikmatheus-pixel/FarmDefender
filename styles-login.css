@@ -67,3 +67,27 @@ input {
     cursor: pointer;
     font-size: 15px;
 }
+.btn-ranking {
+    margin-top: 5px;
+    padding: 12px;
+    width: 100%;
+    background: linear-gradient(180deg, #ffcc33, #ff9900);
+    color: #663300;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.25);
+    transition: 0.2s;
+}
+
+.btn-ranking:hover {
+    background: linear-gradient(180deg, #ffdd55, #ffaa00);
+    transform: translateY(-2px);
+}
+
+.btn-ranking:active {
+    background: linear-gradient(180deg, #ffbb22, #ff8800);
+    transform: translateY(1px);
+}
