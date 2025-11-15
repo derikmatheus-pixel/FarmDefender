@@ -246,3 +246,81 @@ button.secundario {
 .btn-voltar:hover {
     transform: scale(1.05);
 }
+
+/* --- RANKING USANDO O QUADRO --- */
+
+.ranking-bg {
+    background: url('quadrofundo.png') center center / cover no-repeat;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Área onde o quadro fica */
+.ranking-quadro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 70%;
+    max-width: 650px;
+
+    padding: 30px;
+    text-align: center;
+
+    /* invisível para deixar o quadro verdadeiro aparecer */
+    background: rgba(0,0,0,0.0);
+}
+
+/* Título */
+.ranking-title {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #4e2a00;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Tabela */
+.ranking-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.ranking-tabela th {
+    background: #ffcb42;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 20px;
+    color: #4e2a00;
+}
+
+.ranking-tabela td {
+    padding: 10px;
+    font-size: 18px;
+    color: #4e2a00;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+
+.ranking-tabela tr:nth-child(even) {
+    background: rgba(255, 228, 150, 0.4);
+    border-radius: 6px;
+}
+
+/* Botão */
+.btn-voltar {
+    padding: 12px 25px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    background: #2d89ef;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-voltar:hover {
+    transform: scale(1.05);
+}
