@@ -1,45 +1,52 @@
 function abrirCadastro() {
-    document.getElementById("loginForm").classList.add("hidden");
-    document.getElementById("cadastroForm").classList.remove("hidden");
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("cadastroBox").classList.remove("hidden");
 }
 
-function fecharCadastro() {
-    document.getElementById("cadastroForm").classList.add("hidden");
-    document.getElementById("loginForm").classList.remove("hidden");
+function abrirLogin() {
+    document.getElementById("cadastroBox").classList.add("hidden");
+    document.getElementById("loginBox").classList.remove("hidden");
 }
 
+/* Cadastrar novo jogador */
 function cadastrar() {
-    const nick = document.getElementById("nickNovo").value.trim();
-    const senha = document.getElementById("senhaNova").value.trim();
+    const nick = document.getElementById("cadNick").value.trim();
+    const senha = document.getElementById("cadSenha").value.trim();
 
-    if (nick === "" || senha === "") {
+    if (!nick || !senha) {
         alert("Preencha todos os campos.");
         return;
     }
 
     if (localStorage.getItem(nick)) {
-        alert("Este nick já está cadastrado!");
+        alert("Esse nick já existe. Escolha outro.");
         return;
     }
 
     localStorage.setItem(nick, senha);
     alert("Conta criada com sucesso!");
-    fecharCadastro();
+    abrirLogin();
 }
 
+/* Login */
 function login() {
-    const nick = document.getElementById("nickLogin").value.trim();
-    const senha = document.getElementById("senhaLogin").value.trim();
+    const nick = document.getElementById("loginNick").value.trim();
+    const senha = document.getElementById("loginSenha").value.trim();
 
-    if (nick === "" || senha === "") {
+    if (!nick || !senha) {
         alert("Preencha o login e a senha.");
         return;
     }
 
     const senhaSalva = localStorage.getItem(nick);
 
-    if (!senhaSalva || senhaSalva !== senha) {
-        alert("Nick ou senha incorretos!");
+    if (!senhaSalva) {
+        alert("Nick não encontrado.");
+        return;
+    }
+
+    if (senhaSalva !== senha) {
+        alert("Senha incorreta.");
         return;
     }
 
