@@ -60,16 +60,12 @@ function perderVida() {
 
 function finalizarJogo() {
     clearInterval(spawnInterval);
-    salvarRanking();
+    salvarRanking();  // agora salva no Firebase
     window.location.href = "ranking.html";
 }
 
 function salvarRanking() {
-    let lista = JSON.parse(localStorage.getItem("farm_rank")) || [];
-    lista.push({ nick: jogador, pontos: pontos });
-
-    lista.sort((a, b) => b.pontos - a.pontos);
-    localStorage.setItem("farm_rank", JSON.stringify(lista));
+    salvarPontuacao(jogador, pontos);  // AQUI — RANK GLOBAL
 }
 
 document.getElementById("btnLogout").onclick = () => {
