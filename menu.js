@@ -1,22 +1,24 @@
-// Verifica login
-const jogador = localStorage.getItem("usuarioLogadoFarm");
-if (!jogador) {
-    window.location.href = "index.html";
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const jogador = localStorage.getItem("usuarioLogadoFarm");
 
-// Exibe o nome do jogador
-document.getElementById("menuJogador").innerText = jogador;
+    if (!jogador) {
+        window.location.href = "index.html";
+        return;
+    }
 
-// botoes
-document.getElementById("jogar").onclick = () => {
+    const nomeJogador = document.getElementById("nomeJogador");
+    nomeJogador.textContent = jogador;
+});
+
+function jogar() {
     window.location.href = "jogo.html";
 }
 
-document.getElementById("ranking").onclick = () => {
+function ranking() {
     window.location.href = "ranking.html";
 }
 
-document.getElementById("sair").onclick = () => {
+function sair() {
     localStorage.removeItem("usuarioLogadoFarm");
     window.location.href = "index.html";
 }
