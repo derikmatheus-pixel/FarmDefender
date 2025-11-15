@@ -20,25 +20,29 @@ function spawnCriatura() {
     criatura.classList.add("criatura");
 
     const maxX = cenario.clientWidth - 45;
-
-    // Criaturas aparecem da metade para baixo
     const minY = cenario.clientHeight * 0.45;
-    const maxY = cenario.clientHeight - 60;
+    const maxY = cenario.clientHeight * 0.90;
 
     criatura.style.left = Math.random() * maxX + "px";
-    criatura.style.top = minY + Math.random() * (maxY - minY) + "px";
+    criatura.style.top = Math.random() * (maxY - minY) + minY + "px";
+
+    let removida = false; // Controle para não duplicar a remoção
 
     criatura.onclick = () => {
-        pontos++;
-        mostrarHUD();
-        criatura.remove();
+        if (!removida) {
+            removida = true;
+            pontos++;
+            mostrarHUD();
+            criatura.remove();
+        }
     };
 
     cenario.appendChild(criatura);
 
-    // Se não clicar → perde vida
+    // Se NÃO clicar → perde vida
     setTimeout(() => {
-        if (criatura.parentNode) {
+        if (!removida) {
+            removida = true;
             criatura.remove();
             perderVida();
         }
@@ -52,9 +56,9 @@ function iniciarJogo() {
 
 function perderVida() {
     vidas--;
-    
+
     if (vidas < 0) vidas = 0;
-    
+
     mostrarHUD();
 
     if (vidas === 0) {
@@ -64,9 +68,13 @@ function perderVida() {
 
 function finalizarJogo() {
     clearInterval(spawnInterval);
-    salvarRanking();
-    window.location.href = "ranking.html";
+
+    // Garante que o Firebase salve antes de trocar de página
+    salvarPontuacao(jogador, pontos).then(() => {
+        window.location.href = "ranking.html";
+    });
 }
+
 
 function salvarRanking() {
     salvarPontuacao(jogador, pontos); // Salva no Firebase
@@ -78,3 +86,4 @@ document.getElementById("btnLogout").onclick = () => {
 };
 
 iniciarJogo();
+
