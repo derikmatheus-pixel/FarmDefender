@@ -1,34 +1,50 @@
-// Carregar ranking global
-function carregarRanking(lista) {
-
-    const div = document.getElementById("rankingLista");
-
-    div.innerHTML = lista.map((jogador, i) =>
-        `
-        <table class="rankLinha">
-            <tr>
-                <td>${i + 1}</td>
-                <td>${jogador.nick}</td>
-                <td>${jogador.pontos}</td>
-            </tr>
-        </table>
-        `
-    ).join("");
+// Garante login
+const jogador = localStorage.getItem("usuarioLogadoFarm");
+if (!jogador) {
+    window.location.href = "index.html";
 }
 
-// Buscar do Firebase
-db.ref("ranking")
-    .orderByChild("pontos")
-    .limitToLast(100)
-    .once("value", snapshot => {
+const tabela = document.getElementById("rankingTabela").querySelector("tbody");
+const btnVoltar = document.getElementById("btnVoltar");
 
-        const lista = [];
+btnVoltar.onclick = () => {
+    window.location.href = "menu.html";
+};
 
-        snapshot.forEach(child => {
-            lista.push(child.val());
-        });
+// Se seu firebase.js já expõe uma função buscarRanking(), use ela.
+// Caso contrário, este bloco assume firebase.database() como global.
 
-        lista.reverse();
+function carregarRanking() {
+    if (typeof firebase !== "undefined" && firebase.database) {
+        firebase.database().ref("ranking")
+            .orderByChild("pontos")
+            .limitToLast(10)
+            .once("value")
+            .then((snapshot) => {
+                const dados = [];
+                snapshot.forEach((child) => {
+                    dados.push(child.val());
+                });
 
-        carregarRanking(lista);
-    });
+                // ordem decrescente
+                dados.sort((a, b) => b.pontos - a.pontos);
+
+                tabela.innerHTML = "";
+
+                dados.forEach((item, index) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.jogador || item.nome || "??? "}</td>
+                        <td>${item.pontos || 0}</td>
+                    `;
+                    tabela.appendChild(tr);
+                });
+            })
+            .catch((err) => {
+                console.error("Erro ao carregar ranking:", err);
+            });
+    }
+}
+
+carregarRanking();
