@@ -1,5 +1,5 @@
 // LIMITE DE JOGADORES NO RANK
-const LIMITE_RANKING = 5;
+const LIMITE_RANKING = 50;
 
 const tabelaRanking = document.getElementById("tabelaRanking");
 
@@ -47,3 +47,4 @@ rankingRef.orderByChild("pontos").on("value", (snapshot) => {
         tabelaRanking.appendChild(tr);
     });
 });
+
