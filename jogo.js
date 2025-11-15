@@ -15,7 +15,7 @@ let tiros = [];
 let corvos = [];
 
 let spawnInterval = null;
-let rodando = true; // controla fim de jogo
+let rodando = true;
 let mirandoCima = false;
 let tiroCooldown = false;
 
@@ -31,6 +31,8 @@ function mostrarHUD() {
 //   Criação do Fazendeiro
 // -------------------------
 function criarFazendeiro() {
+    const cenario = document.getElementById("cenario");
+
     fazendeiro = document.createElement("img");
     fazendeiro.src = "fazendeiro.png";
     fazendeiro.id = "player";
@@ -40,7 +42,7 @@ function criarFazendeiro() {
     fazendeiro.style.top = "300px";
     fazendeiro.style.width = "40px";
 
-    document.getElementById("cenario").appendChild(fazendeiro);
+    cenario.appendChild(fazendeiro);
 }
 
 // -------------------------
@@ -68,13 +70,13 @@ function spawnCorvo() {
 //   Movimentação dos Corvos
 // -------------------------
 function atualizarCorvos() {
-    const chao = 340; // altura aproximada do solo do cenário
+    const chao = 340; // altura aproximada do solo
 
     corvos.forEach((corvo, index) => {
         let y = parseInt(corvo.style.top);
         corvo.style.top = (y + 2.5) + "px";
 
-        // Corvo chegou no chão
+        // Chegou no chão
         if (y >= chao) {
             corvo.remove();
             corvos.splice(index, 1);
@@ -99,7 +101,7 @@ function atirar() {
     if (tiroCooldown || !rodando) return;
 
     tiroCooldown = true;
-    setTimeout(() => tiroCooldown = false, 200);
+    setTimeout(() => (tiroCooldown = false), 200);
 
     const cenario = document.getElementById("cenario");
 
@@ -107,9 +109,6 @@ function atirar() {
     tiro.classList.add("tiro");
 
     tiro.style.position = "absolute";
-    tiro.style.width = "4px";
-    tiro.style.height = "12px";
-    tiro.style.background = "yellow";
 
     let px = parseInt(fazendeiro.style.left) + 16;
 
@@ -128,7 +127,6 @@ function atirar() {
 function atualizarTiros() {
     tiros.forEach((tiro, index) => {
         let y = parseInt(tiro.style.top);
-
         tiro.style.top = (y + tiro.dirY) + "px";
 
         if (y < -20) {
@@ -154,7 +152,7 @@ function atualizarTiros() {
 }
 
 // -------------------------
-//   Colisão RECT-RECT
+//   Colisão
 // -------------------------
 function colide(a, b) {
     if (!a || !b) return false;
@@ -191,23 +189,29 @@ function perderVida() {
 // -------------------------
 function finalizarJogo() {
     rodando = false;
-
     clearInterval(spawnInterval);
 
-    // Remove tiros/corvos restantes
+    // Limpa elementos
     corvos.forEach(c => c.remove());
     tiros.forEach(t => t.remove());
 
-    salvarPontuacao(jogador, pontos).then(() => {
+    // Salva pontuação e vai para o ranking
+    if (typeof salvarPontuacao === "function") {
+        salvarPontuacao(jogador, pontos).then(() => {
+            window.location.href = "ranking.html";
+        }).catch(() => {
+            window.location.href = "ranking.html";
+        });
+    } else {
         window.location.href = "ranking.html";
-    });
+    }
 }
 
 // -------------------------
 //   Controles
 // -------------------------
 document.addEventListener("keydown", (e) => {
-    if (!rodando) return;
+    if (!rodando || !fazendeiro) return;
 
     let x = parseInt(fazendeiro.style.left);
 
@@ -216,7 +220,7 @@ document.addEventListener("keydown", (e) => {
     }
 
     if (e.key === "ArrowRight") {
-        fazendeiro.style.left = Math.min(520, x + 10) + "px";
+        fazendeiro.style.left = Math.min(560, x + 10) + "px";
     }
 
     if (e.key === "ArrowUp") {
@@ -224,6 +228,7 @@ document.addEventListener("keydown", (e) => {
     }
 
     if (e.key === " ") {
+        e.preventDefault();
         atirar();
     }
 });
@@ -233,6 +238,11 @@ document.addEventListener("keyup", (e) => {
         mirandoCima = false;
     }
 });
+
+// Botão Sair
+document.getElementById("btnlogout").onclick = () => {
+    window.location.href = "menu.html";
+};
 
 // -------------------------
 //   Loop Principal
@@ -251,9 +261,7 @@ function loop() {
 function iniciarJogo() {
     mostrarHUD();
     criarFazendeiro();
-
     spawnInterval = setInterval(spawnCorvo, 1200);
-
     loop();
 }
 
