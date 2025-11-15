@@ -2,40 +2,40 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Farm Defender - Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="login-container">
+    <div class="container">
 
         <!-- LOGO -->
-        <img src="logo.png" class="logo" alt="Farm Defender Logo">
+        <img src="logo.png" class="logo" alt="Logo Farm Defender">
 
         <!-- TÍTULO -->
-        <h1>Bem-vindo(a) ao Farm Defender</h1>
+        <h1 class="titulo">Farm Defender</h1>
 
-        <!-- LOGIN FORM -->
-        <div id="loginForm" class="card">
+        <!-- LOGIN -->
+        <div id="loginBox" class="box">
 
-            <input type="text" id="nickLogin" placeholder="Seu Nick">
-            <input type="password" id="senhaLogin" placeholder="Senha">
+            <input type="text" id="loginNick" placeholder="Seu nick">
+            <input type="password" id="loginSenha" placeholder="Senha">
 
-            <button class="btn" onclick="login()">Entrar</button>
+            <button onclick="login()" class="btn">Entrar</button>
 
             <p class="link" onclick="abrirCadastro()">Criar conta</p>
         </div>
 
-        <!-- CADASTRO FORM -->
-        <div id="cadastroForm" class="card hidden">
+        <!-- CADASTRO -->
+        <div id="cadastroBox" class="box hidden">
 
-            <input type="text" id="nickNovo" placeholder="Novo Nick">
-            <input type="password" id="senhaNova" placeholder="Nova senha">
+            <input type="text" id="cadNick" placeholder="Novo nick">
+            <input type="password" id="cadSenha" placeholder="Nova senha">
 
-            <button class="btn" onclick="cadastrar()">Cadastrar</button>
+            <button onclick="cadastrar()" class="btn">Cadastrar</button>
 
-            <p class="link" onclick="fecharCadastro()">Voltar ao login</p>
+            <p class="link" onclick="abrirLogin()">Voltar ao login</p>
         </div>
 
     </div>
