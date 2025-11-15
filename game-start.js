@@ -1,15 +1,6 @@
-function loop() {
-    if (!rodando) return;
-    moverCorvos();
-    requestAnimationFrame(loop);
-}
+// game-start.js
 
-function iniciarJogo() {
-    atualizarHUD();
-    criarFazendeiro();
-
-    spawnInterval = setInterval(spawnCorvo, 1200);
-    loop();
-}
-
-iniciarJogo();
+document.addEventListener("DOMContentLoaded", function () {
+    // inicia o jogo automaticamente ao carregar a página
+    iniciarJogo();
+});
