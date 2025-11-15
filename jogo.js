@@ -100,15 +100,20 @@ function carregarRanking() {
     });
 }
 
-/**
- * Botão Voltar ao Menu
- * (ajuste "menu.html" caso o nome do seu arquivo seja outro)
- */
+// BOTÃO VOLTAR (seguro)
+const btnVoltarMenu = document.getElementById("btnVoltarMenu");
+
 if (btnVoltarMenu) {
     btnVoltarMenu.addEventListener("click", () => {
-        window.location.href = "menu.html";
+        console.log("Botão Voltar ao Menu clicado");
+        window.location.href = "menu.html"; // ajuste se o arquivo tiver outro nome
     });
+} else {
+    console.warn("Elemento #btnVoltarMenu não encontrado.");
+}
+   });
 }
 
 // Inicia o carregamento do ranking ao abrir a página
 carregarRanking();
+
