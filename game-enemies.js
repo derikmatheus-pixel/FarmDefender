@@ -1,10 +1,10 @@
 // Dimensões do corvo (iguais ao CSS)
-const CORVO_LARGURA = 60;
-const CORVO_ALTURA  = 60;
+const CORVO_LARGURA = 48;
+const CORVO_ALTURA  = 48;
 
 // Configuração do sprite
 const CORVO_QTD_FRAMES = 4;       // 4 frames na imagem
-const CORVO_FRAME_LARGURA = 60;   // largura de 1 frame
+const CORVO_FRAME_LARGURA = 48;   // largura de 1 frame
 
 // Lista de corvos ativos na tela
 let corvos = [];
