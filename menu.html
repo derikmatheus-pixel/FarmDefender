@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Farm Defender - Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="menu-bg">
+
+<div class="menu-container">
+
+    <img src="logo.png" class="menu-logo" alt="Farm Defender Logo">
+
+    <h2 class="menu-user">Bem-vindo, <span id="nomeJogador"></span></h2>
+
+    <div class="menu-buttons">
+        <button onclick="iniciarJogo()" class="menu-btn">Jogar</button>
+        <button onclick="abrirRanking()" class="menu-btn">Ranking</button>
+        <button onclick="sair()" class="menu-btn sair">Sair</button>
+    </div>
+
+</div>
+
+<script>
+    const jogador = localStorage.getItem("usuarioLogadoFarm");
+    if (!jogador) {
+        window.location.href = "index.html";
+    }
+
+    document.getElementById("nomeJogador").innerText = jogador;
+
+    function iniciarJogo() {
+        window.location.href = "jogo.html";
+    }
+
+    function abrirRanking() {
+        window.location.href = "ranking.html";
+    }
+    
+    function sair() {
+        localStorage.removeItem("usuarioLogadoFarm");
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>
