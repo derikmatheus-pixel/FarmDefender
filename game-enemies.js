@@ -78,6 +78,7 @@ function matarCorvo(corvo) {
 }
 
 // Chamadas periódicas (deixe isso apenas onde inicia o jogo)
-setInterval(moverCorvos, 16);    // movimento
-setInterval(spawnCorvo, 1000);   // cria um novo a cada 1s
-setInterval(animarCorvos, 100);  // troca frame a cada 100ms (10 FPS)
+setInterval(moverCorvos, 16);    // movimento (~60 FPS)
+setInterval(spawnCorvo, 1000);   // novo corvo a cada 1 segundo
+setInterval(animarCorvos, 120);  // animação troca frame a cada 120ms
+
