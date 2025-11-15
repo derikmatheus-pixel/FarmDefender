@@ -1,28 +1,27 @@
-function criarFazendeiro() {
+// game-player.js
+
+let player = null;
+
+function criarPlayer() {
     const cenario = document.getElementById("cenario");
+    if (!cenario) return;
 
-    fazendeiro = document.createElement("img");
-    fazendeiro.src = "fazendeiro.png";
-    fazendeiro.id = "player";
+    // evita duplicar
+    if (player && cenario.contains(player)) return;
 
-    fazendeiro.style.position = "absolute";
-    fazendeiro.style.left = "250px";
-    fazendeiro.style.top = "300px";
-    fazendeiro.style.width = "40px";
+    player = document.createElement("img");
+    player.id = "player";
+    player.src = "fazendeiro.png";
 
-    cenario.appendChild(fazendeiro);
-}
+    cenario.appendChild(player);
 
-function moverFazendeiro(tecla) {
-    if (!rodando || !fazendeiro) return;
+    // centraliza na parte de baixo
+    const largura = cenario.clientWidth;
+    const altura = cenario.clientHeight;
 
-    let x = parseInt(fazendeiro.style.left);
+    const posX = (largura - 40) / 2;
+    const posY = altura - 60;
 
-    if (tecla === "ArrowLeft") {
-        fazendeiro.style.left = Math.max(0, x - 10) + "px";
-    }
-
-    if (tecla === "ArrowRight") {
-        fazendeiro.style.left = Math.min(560, x + 10) + "px";
-    }
+    player.style.left = posX + "px";
+    player.style.top = posY + "px";
 }
