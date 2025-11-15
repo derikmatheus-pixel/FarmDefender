@@ -1,13 +1,13 @@
 // firebase.js
 
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_PROJETO.firebaseapp.com",
-    databaseURL: "https://SEU_PROJETO-default-rtdb.firebaseio.com",
-    projectId: "SEU_PROJETO",
-    storageBucket: "SEU_PROJETO.appspot.com",
-    messagingSenderId: "XXXXXXX",
-    appId: "X:XXXXXXX:web:XXXXXXXX"
+  apiKey: "AIzaSyA_Cgh9z56sQaMof3e86NSNmKuwF1a9DfM",
+  authDomain: "farmdefender-5e7ae.firebaseapp.com",
+  databaseURL: "https://farmdefender-5e7ae-default-rtdb.firebaseio.com",
+  projectId: "farmdefender-5e7ae",
+  storageBucket: "farmdefender-5e7ae.firebasestorage.app",
+  messagingSenderId: "513357885346",
+  appId: "1:513357885346:web:3a22bf7d9a6f39c3d18cfb"
 };
 
 firebase.initializeApp(firebaseConfig);
