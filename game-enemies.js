@@ -2,9 +2,7 @@ function spawnCorvo() {
     if (!rodando) return;
 
     const cenario = document.getElementById("cenario");
-    const corvo = document.createElement("img");
-
-    corvo.src = "corvo.png";
+    cconst corvo = document.createElement("div");
     corvo.classList.add("corvo");
 
     corvo.style.width = "55px";
