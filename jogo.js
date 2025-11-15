@@ -16,35 +16,28 @@ function mostrarHUD() {
     hudVidas.innerText = "Vidas: " + vidas;
 }
 
-function spawnCriatura() {
-    const criatura = document.createElement("img");
-    criatura.src = "corvo.png";
-    criatura.classList.add("criatura");
+function spawnCorvo() {
+    if (!rodando) return;
 
-    const maxX = cenario.clientWidth - 45;
-    const minY = cenario.clientHeight * 0.3;
-    const maxY = cenario.clientHeight - 60;
+    const cenario = document.getElementById("cenario");
 
-    const posX = Math.random() * maxX;
-    const posY = Math.random() * (maxY - minY) + minY;
+    const corvo = document.createElement("img");
+    corvo.src = "corvo.png";
+    corvo.classList.add("corvo");
 
-    criatura.style.left = posX + "px";
-    criatura.style.top = posY + "px";
+    corvo.style.position = "absolute";
+    corvo.style.width = "60px"; // <<< TAMANHO CONTROLADO
+    corvo.style.height = "auto";
 
-    criatura.addEventListener("click", function () {
-        pontos += 10;
-        mostrarHUD();
-        criatura.remove();
-    });
+    corvo.style.left = Math.random() * (cenario.clientWidth - 60) + "px";
+    corvo.style.top = "-70px";
 
-    cenario.appendChild(criatura);
+    corvo.onclick = () => {
+        matarCorvo(corvo);
+    };
 
-    setTimeout(function () {
-        if (document.body.contains(criatura)) {
-            criatura.remove();
-            perderVida();
-        }
-    }, 1500);
+    cenario.appendChild(corvo);
+    corvos.push(corvo);
 }
 
 function perderVida() {
@@ -87,3 +80,4 @@ document.addEventListener("DOMContentLoaded", function () {
     mostrarHUD();
     iniciarJogo();
 });
+
