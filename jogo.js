@@ -129,23 +129,18 @@ function perderVida() {
     }
 }
 
-// -------------------------
-//   Finalização
-// -------------------------
-function finalizarJogo() {
-    rodando = false;
+function fimDeJogo() {
     clearInterval(spawnInterval);
 
-    corvos.forEach(c => c.remove());
+    const jogador = localStorage.getItem("usuarioLogadoFarm") || "Jogador";
 
-    if (typeof salvarPontuacao === "function") {
-        salvarPontuacao(jogador, pontos)
-            .then(() => window.location.href = "ranking.html")
-            .catch(() => window.location.href = "ranking.html");
-    } else {
-        window.location.href = "ranking.html";
-    }
+    // salva no Firebase
+    salvarPontuacao(jogador, pontos);
+
+    // depois manda para a tela de ranking
+    window.location.href = "ranking.html";
 }
+
 
 // -------------------------
 //   Controles (apenas mover o fazendeiro)
@@ -190,3 +185,4 @@ function iniciarJogo() {
 }
 
 iniciarJogo();
+
