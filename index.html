@@ -5,47 +5,21 @@
     <title>Farm Defender - Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body class="login-bg">
-
-    <!-- LOGO FIXA NO TOPO -->
-    <img src="logo.png" class="login-logo" alt="Farm Defender Logo">
-
     <div class="container">
+        <div class="tela" style="position: relative;">
+            <img src="login.png" class="login-logo" alt="Logo Farm Defender">
 
-        <!-- TELA LOGIN -->
-        <div id="telaLogin" class="tela">
-            <input type="text" id="loginNick" placeholder="Nick">
-            <input type="password" id="loginSenha" placeholder="Senha">
+            <h1 class="menu-title">Bem-vindo ao Farm Defender</h1>
+            <p class="menu-user">Informe seu nick para jogar:</p>
+
+            <input type="text" id="inputNick" placeholder="Seu nick aqui">
+            <span id="erroLogin" class="erro">Digite um nick válido.</span>
 
             <button id="btnEntrar">Entrar</button>
-            <p class="erro" id="loginErro"></p>
-
-            <button id="btnAbrirCadastro" class="secundario">Criar conta</button>
         </div>
-
-        <!-- TELA CADASTRO -->
-        <div id="telaCadastro" class="tela" style="display:none;">
-            <h2>Criar Conta</h2>
-            <input type="text" id="cadNick" placeholder="Nick">
-            <input type="password" id="cadSenha" placeholder="Senha">
-
-            <button id="btnCadastrar">Cadastrar</button>
-            <p class="erro" id="cadErro"></p>
-
-            <button id="btnVoltarLogin" class="secundario">Voltar</button>
-        </div>
-
     </div>
 
     <script src="login.js"></script>
 </body>
 </html>
-
-<div id="hudPontos" class="hud">Pontos: 0</div>
-<div id="hudVidas" class="hud">Vidas: 3</div>
-
-<div id="cenario"></div>
-
-<button id="btnlogout">Sair</button>
-<script src="jogo.js"></script>
