@@ -1,16 +1,18 @@
 // Dimensões do corvo (iguais ao CSS)
+// Dimensões do corvo (mesmo do CSS)
 const CORVO_LARGURA = 48;
 const CORVO_ALTURA  = 48;
 
-// Configuração do sprite
-const CORVO_QTD_FRAMES = 4;       // 4 frames na imagem
-const CORVO_FRAME_LARGURA = 48;   // largura de 1 frame
+// Arquivos das 3 imagens do corvo
+const CORVO_FRAMES = [
+    "corvo1.png",
+    "corvo2.png",
+    "corvo3.png"
+];
 
-// Lista de corvos ativos na tela
-let corvos = [];
+let corvos = [];            // lista de corvos ativos
+let corvoFrameGlobal = 0;   // frame atual da animação
 
-// Controle da animação
-let corvoFrameAtual = 0;
 
 // Cria um novo corvo
 function spawnCorvo() {
