@@ -1,4 +1,9 @@
+// game-hud.js
+
 function atualizarHUD() {
-    document.getElementById("hudPontos").innerText = "Pontos: " + pontos;
-    document.getElementById("hudVidas").innerText = "Vidas: " + vidas;
+    const spanPontos = document.getElementById("hudPontos");
+    const spanVidas = document.getElementById("hudVidas");
+
+    if (spanPontos) spanPontos.textContent = "Pontos: " + pontos;
+    if (spanVidas) spanVidas.textContent = "Vidas: " + vidas;
 }
