@@ -7,23 +7,24 @@
     <link rel="stylesheet" href="styles-ranking.css">
 </head>
 <body>
-
     <div class="ranking-container">
-        <div class="ranking-card">
 
+        <!-- Card posicionado sobre o quadro -->
+        <div class="ranking-card">
             <h1 class="ranking-titulo">Ranking</h1>
             <p class="ranking-subtitulo">Posição • Jogador • Pontos</p>
 
-            <div class="ranking-tabela-wrapper">
-                <table class="ranking-tabela">
+            <div class="ranking-table-wrapper">
+                <table class="ranking-table">
                     <thead>
                         <tr>
-                            <th>Posição</th>
-                            <th>Jogador</th>
-                            <th>Pontos</th>
+                            <th class="col-posicao">#</th>
+                            <th class="col-jogador">Jogador</th>
+                            <th class="col-pontos">Pontos</th>
                         </tr>
                     </thead>
                     <tbody id="tabelaRanking">
+                        <!-- preenchido pelo ranking.js -->
                     </tbody>
                 </table>
             </div>
@@ -31,12 +32,15 @@
             <button id="btnVoltarMenu" class="btn-voltar">
                 Voltar ao Menu
             </button>
-
         </div>
+
     </div>
 
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- Seu config -->
     <script src="firebase.js"></script>
     <script src="ranking.js"></script>
 </body>
