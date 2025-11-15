@@ -2,46 +2,29 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Farm Defender - Menu</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="menu-bg">
-    <div class="container">
-        <div class="menu-container">
-            <img src="logo.png" class="menu-logo" alt="Logo Farm Defender">
+<body>
 
-            <h1 class="menu-title">Farm Defender</h1>
-            <p class="menu-user">Olá, <span id="menuJogador"></span>!</p>
+    <div class="menu-container">
 
-            <div class="menu-buttons">
-                <button class="menu-btn" id="btnJogar">Jogar</button>
-                <button class="menu-btn" id="btnRanking">Ranking</button>
-                <button class="menu-btn sair" id="btnSair">Sair</button>
-            </div>
+        <img src="logo-menu.png" class="menu-logo" alt="Farm Defender Logo">
+
+        <h2 class="menu-titulo">Bem-vindo(a)</h2>
+        <h3 id="menuJogador"></h3>
+
+        <div class="menu-box">
+
+            <button class="btn-menu" id="jogar">Jogar</button>
+            <button class="btn-menu" id="ranking">Ranking</button>
+            <button class="btn-menu sair" id="sair">Sair</button>
+
         </div>
+
     </div>
 
-    <script>
-        // carrega o nick
-        const jogador = localStorage.getItem("usuarioLogadoFarm");
-        if (!jogador) {
-            window.location.href = "index.html";
-        } else {
-            document.getElementById("menuJogador").innerText = jogador;
-        }
-
-        document.getElementById("btnJogar").onclick = () => {
-            window.location.href = "jogo.html";
-        };
-
-        document.getElementById("btnRanking").onclick = () => {
-            window.location.href = "ranking.html";
-        };
-
-        document.getElementById("btnSair").onclick = () => {
-            localStorage.removeItem("usuarioLogadoFarm");
-            window.location.href = "index.html";
-        };
-    </script>
+    <script src="menu.js"></script>
 </body>
 </html>
