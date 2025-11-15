@@ -37,23 +37,18 @@
 /* CORVO ANIMADO */
 .corvo {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 60px;      /* largura de 1 frame */
+    height: 60px;     /* altura de 1 frame */
 
     background-image: url("corvo-animado.png");
-    background-size: 240px 60px; /* 4 frames (4 x 60px) */
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 240px 60px;  /* 4 frames: 4 * 60 = 240 */
 
-    animation: voar 0.35s steps(4) infinite;
+    image-rendering: pixelated;
     cursor: pointer;
     user-select: none;
 }
-
-@keyframes voar {
-    from { background-position: 0px; }
-    to   { background-position: -240px; }
-}
-
-
 
 #btnlogout {
     padding: 10px 30px;
