@@ -1,18 +1,22 @@
 // game-enemies.js
 
+// Tamanho das imagens do corvo (48x48)
 const CORVO_LARGURA = 48;
 const CORVO_ALTURA  = 48;
 
+// Frames da animação (3 pngs)
 const CORVO_FRAMES = [
     "corvo1.png",
     "corvo2.png",
     "corvo3.png"
 ];
 
-let corvos = [];
+// NÃO DECLARE "let corvos = []" AQUI!
+// Estamos usando o "corvos" global do game-core.js
+
 let corvoFrameGlobal = 0;
 
-// Cria um corvo
+// Cria um corvo novo
 function spawnCorvo() {
     if (!rodando) return;
 
@@ -27,7 +31,7 @@ function spawnCorvo() {
     const posX = Math.random() * maxX;
 
     corvo.style.left = posX + "px";
-    corvo.style.top  = -CORVO_ALTURA + "px"; // começa acima da tela
+    corvo.style.top  = -CORVO_ALTURA + "px";
 
     corvo.addEventListener("click", function (e) {
         e.stopPropagation();
@@ -38,7 +42,7 @@ function spawnCorvo() {
     corvos.push(corvo);
 }
 
-// Move todos os corvos
+// Move todos os corvos para baixo
 function moverCorvos() {
     if (!rodando) return;
 
@@ -64,7 +68,7 @@ function moverCorvos() {
     }
 }
 
-// Anima todos os corvos (troca de frame)
+// Anima os frames (troca entre corvo1, corvo2, corvo3)
 function animarCorvos() {
     if (!rodando) return;
     if (corvos.length === 0) return;
