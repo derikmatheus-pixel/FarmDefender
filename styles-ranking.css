@@ -60,33 +60,43 @@ body {
 }
 
 /* TABELA */
+/* CAIXA DA TABELA – FUNDO CLARO */
 .ranking-table-wrapper {
     width: 100%;
-    max-height: 220px;          /* garante que tudo caiba dentro do quadro */
-    overflow-y: auto;           /* se passar, aparece scroll dentro do quadro */
+    max-height: 190px;                 /* ajusta para caber bem no quadro */
+    overflow-y: auto;
+
+    margin-top: 10px;
+    padding: 8px 12px;
+
+    background: rgba(255, 255, 255, 0.85);  /* fundo branco quase cheio */
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+/* TABELA DENTRO DA CAIXA */
 .ranking-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 12px;
-    color: #5b2b0b;
+    color: #4a2a0a;                     /* marrom mais forte para contraste */
     background: transparent;
 }
 
 .ranking-table thead th {
-    padding: 4px 6px;
+    padding: 4px 0;
     font-weight: bold;
-    border-bottom: 1px solid rgba(91, 43, 11, 0.4);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
 }
 
 .ranking-table tbody td {
-    padding: 3px 4px;
+    padding: 3px 0;
 }
 
-/* pequenas larguras de colunas para ficar bem organizado */
+/* larguras / alinhamento das colunas */
 .col-posicao {
     width: 20%;
+    text-align: center;
 }
 .col-jogador {
     width: 50%;
@@ -94,12 +104,14 @@ body {
 }
 .col-pontos {
     width: 30%;
+    text-align: center;
 }
 
-/* zebrando levemente as linhas sem apagar o fundo do quadro */
+/* listras bem suaves nas linhas */
 .ranking-table tbody tr:nth-child(odd) td {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(0, 0, 0, 0.03);
 }
+
 
 /* BOTÃO VOLTAR */
 .btn-voltar {
