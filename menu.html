@@ -6,42 +6,42 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="menu-bg">
+    <div class="container">
+        <div class="menu-container">
+            <img src="logo.png" class="menu-logo" alt="Logo Farm Defender">
 
-<div class="menu-container">
+            <h1 class="menu-title">Farm Defender</h1>
+            <p class="menu-user">Olá, <span id="menuJogador"></span>!</p>
 
-    <img src="logo.png" class="menu-logo" alt="Farm Defender Logo">
-
-    <h2 class="menu-user">Bem-vindo, <span id="nomeJogador"></span></h2>
-
-    <div class="menu-buttons">
-        <button onclick="iniciarJogo()" class="menu-btn">Jogar</button>
-        <button onclick="abrirRanking()" class="menu-btn">Ranking</button>
-        <button onclick="sair()" class="menu-btn sair">Sair</button>
+            <div class="menu-buttons">
+                <button class="menu-btn" id="btnJogar">Jogar</button>
+                <button class="menu-btn" id="btnRanking">Ranking</button>
+                <button class="menu-btn sair" id="btnSair">Sair</button>
+            </div>
+        </div>
     </div>
 
-</div>
+    <script>
+        // carrega o nick
+        const jogador = localStorage.getItem("usuarioLogadoFarm");
+        if (!jogador) {
+            window.location.href = "index.html";
+        } else {
+            document.getElementById("menuJogador").innerText = jogador;
+        }
 
-<script>
-    const jogador = localStorage.getItem("usuarioLogadoFarm");
-    if (!jogador) {
-        window.location.href = "index.html";
-    }
+        document.getElementById("btnJogar").onclick = () => {
+            window.location.href = "jogo.html";
+        };
 
-    document.getElementById("nomeJogador").innerText = jogador;
+        document.getElementById("btnRanking").onclick = () => {
+            window.location.href = "ranking.html";
+        };
 
-    function iniciarJogo() {
-        window.location.href = "jogo.html";
-    }
-
-    function abrirRanking() {
-        window.location.href = "ranking.html";
-    }
-    
-    function sair() {
-        localStorage.removeItem("usuarioLogadoFarm");
-        window.location.href = "index.html";
-    }
-</script>
-
+        document.getElementById("btnSair").onclick = () => {
+            localStorage.removeItem("usuarioLogadoFarm");
+            window.location.href = "index.html";
+        };
+    </script>
 </body>
 </html>
