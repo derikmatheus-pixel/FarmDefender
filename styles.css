@@ -1,3 +1,6 @@
+/* ----------------------------------------------------
+   SEU CSS ORIGINAL
+---------------------------------------------------- */
 body {
     margin: 0;
     padding: 0;
@@ -18,8 +21,8 @@ body {
 }
 
 .logo {
-    width: 220px;       /* Aumenta a logo */
-    max-width: 80%;     /* Garante proporção no celular */
+    width: 220px;
+    max-width: 80%;
     height: auto;
     margin-bottom: 20px;
     display: block;
@@ -81,3 +84,77 @@ input {
     }
 }
 
+
+
+/* ----------------------------------------------------
+   ADIÇÃO: ESTILOS DO JOGO FARM DEFENDER
+---------------------------------------------------- */
+
+/* HUD (pontos e vidas) */
+#hud {
+    display: flex;
+    gap: 40px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* Área onde o jogo acontece */
+#cenario {
+    width: 600px;
+    height: 380px;
+    background: rgba(0,0,0,0.35);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+/* Corvos (clicáveis) */
+.corvo {
+    position: absolute;
+    width: 45px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Fazendeiro (visual, opcional) */
+#player {
+    position: absolute;
+    width: 40px;
+    user-select: none;
+}
+
+/* Botão de Sair */
+#btnlogout {
+    padding: 12px 35px;
+    font-size: 17px;
+    margin-top: 15px;
+    font-weight: bold;
+    background: #b30000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btnlogout:hover {
+    background: #e00000;
+}
+
+/* Ajuste responsivo */
+@media(max-width: 600px) {
+    #cenario {
+        width: 92%;
+        height: 320px;
+    }
+
+    #hud {
+        font-size: 18px;
+        gap: 25px;
+    }
+}
