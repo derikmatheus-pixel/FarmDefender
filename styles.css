@@ -18,10 +18,11 @@ body {
 }
 
 .logo {
-    width: 240px;
-    max-width: 85%;
+    width: 220px;       /* Aumenta a logo */
+    max-width: 80%;     /* Garante proporção no celular */
     height: auto;
     margin-bottom: 20px;
+    display: block;
 }
 
 .box {
@@ -79,3 +80,4 @@ input {
         padding: 22px;
     }
 }
+
