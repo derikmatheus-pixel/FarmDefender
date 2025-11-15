@@ -13,24 +13,23 @@ const CORVO_FRAMES = [
 let corvos = [];            // lista de corvos ativos
 let corvoFrameGlobal = 0;   // frame atual da animação
 
-
 // Cria um novo corvo
 function spawnCorvo() {
     if (typeof rodando !== "undefined" && !rodando) return;
 
     const cenario = document.getElementById("cenario");
-    const corvo = document.createElement("div");
 
+    // agora é uma IMG
+    const corvo = document.createElement("img");
     corvo.classList.add("corvo");
+    corvo.src = CORVO_FRAMES[0]; // começa no primeiro frame
 
-    // posição inicial aleatória na largura
     const maxX = cenario.clientWidth - CORVO_LARGURA;
     const posX = Math.random() * maxX;
 
     corvo.style.left = posX + "px";
     corvo.style.top  = -CORVO_ALTURA + "px"; // começa acima da tela
 
-    // clique mata o corvo
     corvo.addEventListener("click", () => matarCorvo(corvo));
 
     cenario.appendChild(corvo);
@@ -49,7 +48,6 @@ function moverCorvos() {
         y += 2; // velocidade
         corvo.style.top = y + "px";
 
-        // passou do limite → remove e perde vida
         if (y > limiteY) {
             corvo.remove();
             corvos.splice(i, 1);
@@ -62,25 +60,20 @@ function moverCorvos() {
 function animarCorvos() {
     if (corvos.length === 0) return;
 
-    // próximo frame global
-    corvoFrameAtual = (corvoFrameAtual + 1) % CORVO_QTD_FRAMES;
-
-    const offsetX = -(corvoFrameAtual * CORVO_FRAME_LARGURA);
+    corvoFrameGlobal = (corvoFrameGlobal + 1) % CORVO_FRAMES.length;
+    const frameSrc = CORVO_FRAMES[corvoFrameGlobal];
 
     corvos.forEach(corvo => {
-        corvo.style.backgroundPosition = offsetX + "px 0";
+        corvo.src = frameSrc;
     });
 }
 
 // Mata um corvo clicado
 function matarCorvo(corvo) {
     pontos++;
-    atualizarHUD(); // ou mostrarHUD(), use a função que você já usa no jogo
+    atualizarHUD(); // ou mostrarHUD(), use a sua função de HUD
 
-    // tira da lista
     corvos = corvos.filter(c => c !== corvo);
-
-    // remove da tela
     corvo.remove();
 }
 
