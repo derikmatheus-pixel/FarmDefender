@@ -1,45 +1,22 @@
 // game-core.js
 
+// Verifica se há jogador logado
+let jogador = localStorage.getItem("usuarioLogadoFarm");
+if (!jogador) {
+    window.location.href = "index.html";
+}
+
+// Estado global do jogo
 let pontos = 0;
 let vidas = 3;
-let rodando = false;
+let rodando = true;
 
-// loops
-let loopMoverCorvos = null;
-let loopSpawnCorvos = null;
-let loopAnimarCorvos = null;
+// Objetos globais
+let corvos = [];        // <<< ÚNICO array de corvos, usado por todos os arquivos
+let fazendeiro = null;
+let spawnInterval = null;
 
-function iniciarJogo() {
-    const cenario = document.getElementById("cenario");
-    cenario.innerHTML = "";          // limpa inimigos antigos
-
-    pontos = 0;
-    vidas = 3;
-    rodando = true;
-
-    criarPlayer();
-    atualizarHUD();
-    iniciarLoops();
-}
-
-function iniciarLoops() {
-    pararLoops(); // garante que não tenha duplicado
-
-    loopMoverCorvos = setInterval(moverCorvos, 16);     // ~60 FPS
-    loopSpawnCorvos = setInterval(spawnCorvo, 1000);    // 1 corvo/segundo
-    loopAnimarCorvos = setInterval(animarCorvos, 120);  // animação
-}
-
-function pararLoops() {
-    if (loopMoverCorvos) clearInterval(loopMoverCorvos);
-    if (loopSpawnCorvos) clearInterval(loopSpawnCorvos);
-    if (loopAnimarCorvos) clearInterval(loopAnimarCorvos);
-
-    loopMoverCorvos = null;
-    loopSpawnCorvos = null;
-    loopAnimarCorvos = null;
-}
-
+// Perde uma vida
 function perderVida() {
     if (!rodando) return;
 
@@ -47,12 +24,28 @@ function perderVida() {
     atualizarHUD();
 
     if (vidas <= 0) {
-        rodando = false;
-        pararLoops();
-
-        // Aqui você pode salvar no Firebase se quiser
-        // salvarPontuacaoNoRanking(jogador, pontos);
-
-        alert("Game Over! Pontos: " + pontos);
+        finalizarJogo();
     }
+}
+
+// Finaliza o jogo
+function finalizarJogo() {
+    rodando = false;
+
+    // Para o spawn dos corvos
+    if (spawnInterval) {
+        clearInterval(spawnInterval);
+        spawnInterval = null;
+    }
+
+    // Remove todos os corvos da tela
+    corvos.forEach(c => c.remove());
+    corvos = [];
+
+    // Salva pontuação e vai para o ranking
+    // (usa a função que você já tem no firebase.js)
+    salvarPontuacao(jogador, pontos)
+        .finally(() => {
+            window.location.href = "ranking.html";
+        });
 }
