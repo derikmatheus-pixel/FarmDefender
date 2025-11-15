@@ -2,18 +2,19 @@ function spawnCorvo() {
     if (!rodando) return;
 
     const cenario = document.getElementById("cenario");
-    cconst corvo = document.createElement("div");
+    const corvo = document.createElement("div");
+
     corvo.classList.add("corvo");
 
-    corvo.style.width = "55px";
-    corvo.style.top = "-70px";
     corvo.style.left = Math.random() * (cenario.clientWidth - 60) + "px";
+    corvo.style.top = "-70px";
 
     corvo.onclick = () => matarCorvo(corvo);
 
     cenario.appendChild(corvo);
     corvos.push(corvo);
 }
+
 
 function moverCorvos() {
     const chao = 300;
