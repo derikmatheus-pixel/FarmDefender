@@ -37,8 +37,8 @@
 /* CORVO ANIMADO */
 .corvo {
     position: absolute;
-    width: 60px;      /* largura de 1 frame */
-    height: 60px;     /* altura de 1 frame */
+    width: 48px;      /* largura de 1 frame */
+    height: 48px;     /* altura de 1 frame */
 
     background-image: url("corvo-animado.png");
     background-repeat: no-repeat;
