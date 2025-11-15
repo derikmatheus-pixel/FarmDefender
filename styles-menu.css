@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url("fundo.png") no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+.menu-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    text-align: center;
+    backdrop-filter: blur(3px);
+}
+
+.menu-logo {
+    width: 260px;
+    max-width: 90%;
+    margin-bottom: 10px;
+}
+
+.menu-titulo {
+    color: white;
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+#menuJogador {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+.menu-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    gap: 15px;
+}
+
+.btn-menu {
+    padding: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #ff9800;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.25);
+}
+
+.btn-menu:active {
+    background: #e68900;
+}
+
+.btn-menu.sair {
+    background: #d9534f;
+}
+
+.btn-menu.sair:active {
+    background: #c8403c;
+}
