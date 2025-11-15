@@ -1,89 +1,42 @@
-// ranking.js
-// Página de Ranking do Farm Defender
+document.addEventListener("DOMContentLoaded", function () {
+    const tabela = document.getElementById("tabelaRanking");
+    const btnVoltar = document.getElementById("btnVoltarMenu");
 
-// Referência ao banco (firebase.js já faz firebase.initializeApp)
-const db = firebase.database();
-
-// Caminho onde você salva o ranking no Realtime Database.
-// Ajuste o nome "ranking" se estiver usando outro nó.
-const rankingRef = db.ref("ranking");
-
-// Elementos da página
-const tabelaRanking = document.getElementById("tabelaRanking");
-const btnVoltarMenu = document.getElementById("btnVoltarMenu");
-
-// Quantidade máxima de jogadores exibidos
-const LIMITE_RANKING = 50;
-
-/**
- * Carrega o ranking do Firebase, pega o TOP 50
- * e monta as linhas na tabela.
- */
-function carregarRanking() {
-    // ordena por "pontos" e pega os 50 últimos (maiores)
-    rankingRef
-        .orderByChild("pontos")
-        .limitToLast(LIMITE_RANKING)
-        .once("value")
-        .then((snapshot) => {
-            const lista = [];
-
-            snapshot.forEach((child) => {
-                const dados = child.val();
-
-                // garante que existem as propriedades
-                lista.push({
-                    jogador: dados.jogador || "???",
-                    pontos: Number(dados.pontos) || 0
-                });
-            });
-
-            // Firebase retorna em ordem crescente de pontos,
-            // por isso invertimos para ficar do maior para o menor.
-            lista.sort((a, b) => b.pontos - a.pontos);
-
-            // Limpa a tabela antes de preencher
-            tabelaRanking.innerHTML = "";
-
-            // Monta as linhas
-            lista.forEach((item, index) => {
-                const tr = document.createElement("tr");
-
-                const tdPosicao = document.createElement("td");
-                tdPosicao.textContent = index + 1;
-
-                const tdJogador = document.createElement("td");
-                tdJogador.textContent = item.jogador;
-
-                const tdPontos = document.createElement("td");
-                tdPontos.textContent = item.pontos;
-
-                tr.appendChild(tdPosicao);
-                tr.appendChild(tdJogador);
-                tr.appendChild(tdPontos);
-
-                tabelaRanking.appendChild(tr);
-            });
-        })
-        .catch((error) => {
-            console.error("Erro ao carregar ranking:", error);
-            tabelaRanking.innerHTML = `
-                <tr>
-                    <td colspan="3">Erro ao carregar ranking.</td>
-                </tr>
-            `;
+    if (btnVoltar) {
+        btnVoltar.addEventListener("click", function () {
+            window.location.href = "menu.html";
         });
-}
+    }
 
-/**
- * Ação do botão Voltar ao Menu
- */
-if (btnVoltarMenu) {
-    btnVoltarMenu.addEventListener("click", () => {
-        // ajuste o nome do arquivo se o seu menu for outro
-        window.location.href = "menu.html";
+    carregarRanking(function (lista) {
+        tabela.innerHTML = "";
+
+        if (!lista || lista.length === 0) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.colSpan = 3;
+            td.textContent = "Nenhuma pontuação registrada ainda.";
+            tr.appendChild(td);
+            tabela.appendChild(tr);
+            return;
+        }
+
+        lista.forEach(function (item, index) {
+            const tr = document.createElement("tr");
+
+            const tdPosicao = document.createElement("td");
+            const tdJogador = document.createElement("td");
+            const tdPontos = document.createElement("td");
+
+            tdPosicao.textContent = index + 1;
+            tdJogador.textContent = item.nome || "Jogador";
+            tdPontos.textContent = item.pontos || 0;
+
+            tr.appendChild(tdPosicao);
+            tr.appendChild(tdJogador);
+            tr.appendChild(tdPontos);
+
+            tabela.appendChild(tr);
+        });
     });
-}
-
-// Chama o carregamento quando a página é aberta
-carregarRanking();
+});
