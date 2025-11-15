@@ -1,83 +1,114 @@
-let jogador = localStorage.getItem("usuarioLogadoFarm");
-let pontos = 0;
-let vidas = 3;
-let spawnInterval = null;
+// ranking.js
+// Página de Ranking do Farm Defender
 
-if (!jogador) {
-    window.location.href = "index.html";
+// Garante que o Firebase já foi inicializado em firebase.js
+// (firebase.initializeApp(...) lá dentro)
+const db = firebase.database();
+
+// ATENÇÃO: ajuste este caminho se o seu nó no Realtime Database tiver outro nome.
+// Ex.: "jogadores", "pontuacoes", etc.
+const rankingRef = db.ref("ranking");
+
+// Elementos da página
+const tabelaRanking = document.getElementById("tabelaRanking");
+const btnVoltarMenu = document.getElementById("btnVoltarMenu");
+
+// Quantidade máxima de jogadores exibidos
+const LIMITE_RANKING = 50;
+
+/**
+ * Carrega o ranking do Firebase, pega TOP 50
+ * e monta as linhas na tabela.
+ */
+function carregarRanking() {
+    rankingRef.on("value", (snapshot) => {
+        const lista = [];
+
+        snapshot.forEach((child) => {
+            const dados = child.val() || {};
+
+            // Tenta vários nomes possíveis para o campo do jogador
+            const nomeJogador =
+                dados.jogador ||
+                dados.nome ||
+                dados.nick ||
+                dados.nickname ||
+                dados.nomeJogador ||
+                "Jogador";
+
+            // Tenta vários nomes possíveis para o campo de pontos
+            const pontos =
+                Number(
+                    dados.pontos ??
+                    dados.pontuacao ??
+                    dados.score ??
+                    dados.pontuacaoTotal ??
+                    0
+                );
+
+            lista.push({
+                jogador: nomeJogador,
+                pontos: pontos
+            });
+        });
+
+        // Ordena do maior para o menor
+        lista.sort((a, b) => b.pontos - a.pontos);
+
+        // TOP 50
+        const top = lista.slice(0, LIMITE_RANKING);
+
+        // Limpa a tabela
+        tabelaRanking.innerHTML = "";
+
+        if (top.length === 0) {
+            const linhaVazia = document.createElement("tr");
+            const celula = document.createElement("td");
+            celula.colSpan = 3;
+            celula.textContent = "Nenhum resultado de ranking encontrado.";
+            linhaVazia.appendChild(celula);
+            tabelaRanking.appendChild(linhaVazia);
+            return;
+        }
+
+        // Monta as linhas
+        top.forEach((item, index) => {
+            const tr = document.createElement("tr");
+
+            const tdPosicao = document.createElement("td");
+            tdPosicao.textContent = index + 1;
+
+            const tdJogador = document.createElement("td");
+            tdJogador.textContent = item.jogador;
+
+            const tdPontos = document.createElement("td");
+            tdPontos.textContent = item.pontos;
+
+            tr.appendChild(tdPosicao);
+            tr.appendChild(tdJogador);
+            tr.appendChild(tdPontos);
+
+            tabelaRanking.appendChild(tr);
+        });
+    }, (error) => {
+        console.error("Erro ao carregar ranking:", error);
+        tabelaRanking.innerHTML = `
+            <tr>
+                <td colspan="3">Erro ao carregar ranking.</td>
+            </tr>
+        `;
+    });
 }
 
-const hudPontos = document.getElementById("hudPontos");
-const hudVidas = document.getElementById("hudVidas");
-const cenario = document.getElementById("cenario");
-
-function mostrarHUD() {
-    hudPontos.innerText = "Pontos: " + pontos;
-    hudVidas.innerText = "Vidas: " + vidas;
+/**
+ * Botão Voltar ao Menu
+ * (ajuste "menu.html" caso o nome do seu arquivo seja outro)
+ */
+if (btnVoltarMenu) {
+    btnVoltarMenu.addEventListener("click", () => {
+        window.location.href = "menu.html";
+    });
 }
 
-function spawnCorvo() {
-    if (!rodando) return;
-
-    const cenario = document.getElementById("cenario");
-
-    const corvo = document.createElement("img");
-    corvo.src = "corvo.png";
-    corvo.classList.add("corvo");
-
-    corvo.style.position = "absolute";
-    corvo.style.width = "60px"; // <<< TAMANHO CONTROLADO
-    corvo.style.height = "auto";
-
-    corvo.style.left = Math.random() * (cenario.clientWidth - 60) + "px";
-    corvo.style.top = "-70px";
-
-    corvo.onclick = () => {
-        matarCorvo(corvo);
-    };
-
-    cenario.appendChild(corvo);
-    corvos.push(corvo);
-}
-
-function perderVida() {
-    vidas--;
-    mostrarHUD();
-    if (vidas <= 0) {
-        finalizarJogo();
-    }
-}
-
-function iniciarJogo() {
-    pontos = 0;
-    vidas = 3;
-    mostrarHUD();
-
-    if (spawnInterval) {
-        clearInterval(spawnInterval);
-    }
-    spawnInterval = setInterval(spawnCriatura, 1000);
-}
-
-function finalizarJogo() {
-    if (spawnInterval) {
-        clearInterval(spawnInterval);
-        spawnInterval = null;
-    }
-
-    salvarPontuacao(jogador, pontos);
-
-    setTimeout(function () {
-        window.location.href = "ranking.html";
-    }, 800);
-}
-
-function sairJogo() {
-    window.location.href = "menu.html";
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    mostrarHUD();
-    iniciarJogo();
-});
-
+// Inicia o carregamento do ranking ao abrir a página
+carregarRanking();
