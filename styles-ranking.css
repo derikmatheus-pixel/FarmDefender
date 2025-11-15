@@ -26,23 +26,9 @@ body {
 
 /* CARD EM CIMA DO QUADRO */
 .ranking-card {
-    /* tamanho mais enxuto para caber bem no quadro interno */
-    width: 260px;              /* se ficar muito pequeno, teste 270 / 280 */
-    max-width: 90vw;
-    padding: 14px 12px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-
-    background: transparent;
-    text-align: center;
-
-    /* sobe um pouco para encaixar no meio do quadro */
-    transform: translateY(-40px);   /* ajuste esse valor se quiser mais alto/baixo */
+    /* ... resto igual ... */
+    transform: translateY(-40px); /* se precisar, teste -35, -30, -45, etc. */
 }
-
 
 /* TÍTULOS */
 .ranking-titulo {
