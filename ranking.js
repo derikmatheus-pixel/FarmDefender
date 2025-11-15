@@ -1,50 +1,42 @@
-// Garante login
-const jogador = localStorage.getItem("usuarioLogadoFarm");
-if (!jogador) {
-    window.location.href = "index.html";
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const tabela = document.getElementById("tabelaRanking");
+    const btnVoltar = document.getElementById("btnVoltarMenu");
 
-const tabela = document.getElementById("rankingTabela").querySelector("tbody");
-const btnVoltar = document.getElementById("btnVoltar");
-
-btnVoltar.onclick = () => {
-    window.location.href = "menu.html";
-};
-
-// Se seu firebase.js já expõe uma função buscarRanking(), use ela.
-// Caso contrário, este bloco assume firebase.database() como global.
-
-function carregarRanking() {
-    if (typeof firebase !== "undefined" && firebase.database) {
-        firebase.database().ref("ranking")
-            .orderByChild("pontos")
-            .limitToLast(10)
-            .once("value")
-            .then((snapshot) => {
-                const dados = [];
-                snapshot.forEach((child) => {
-                    dados.push(child.val());
-                });
-
-                // ordem decrescente
-                dados.sort((a, b) => b.pontos - a.pontos);
-
-                tabela.innerHTML = "";
-
-                dados.forEach((item, index) => {
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${item.jogador || item.nome || "??? "}</td>
-                        <td>${item.pontos || 0}</td>
-                    `;
-                    tabela.appendChild(tr);
-                });
-            })
-            .catch((err) => {
-                console.error("Erro ao carregar ranking:", err);
-            });
+    if (btnVoltar) {
+        btnVoltar.addEventListener("click", function () {
+            window.location.href = "menu.html";
+        });
     }
-}
 
-carregarRanking();
+    carregarRanking(function (lista) {
+        tabela.innerHTML = "";
+
+        if (!lista || lista.length === 0) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.colSpan = 3;
+            td.textContent = "Nenhuma pontuação registrada ainda.";
+            tr.appendChild(td);
+            tabela.appendChild(tr);
+            return;
+        }
+
+        lista.forEach(function (item, index) {
+            const tr = document.createElement("tr");
+
+            const tdPosicao = document.createElement("td");
+            const tdJogador = document.createElement("td");
+            const tdPontos = document.createElement("td");
+
+            tdPosicao.textContent = index + 1;
+            tdJogador.textContent = item.nome || "Jogador";
+            tdPontos.textContent = item.pontos || 0;
+
+            tr.appendChild(tdPosicao);
+            tr.appendChild(tdJogador);
+            tr.appendChild(tdPontos);
+
+            tabela.appendChild(tr);
+        });
+    });
+});
