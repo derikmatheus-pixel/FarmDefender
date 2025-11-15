@@ -2,9 +2,9 @@ function spawnCorvo() {
     if (!rodando) return;
 
     const cenario = document.getElementById("cenario");
-    const corvo = document.createElement("div");
+    const corvo = document.createElement("div"); // <<< IMPORTANTE
 
-    corvo.classList.add("corvo");
+    corvo.classList.add("corvo"); // <<< Agora sim usa o CSS animado
 
     corvo.style.left = Math.random() * (cenario.clientWidth - 60) + "px";
     corvo.style.top = "-70px";
@@ -14,7 +14,6 @@ function spawnCorvo() {
     cenario.appendChild(corvo);
     corvos.push(corvo);
 }
-
 
 function moverCorvos() {
     const chao = 300;
