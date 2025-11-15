@@ -35,12 +35,21 @@
 
 .corvo {
     position: absolute;
-    width: 60px;     /* <<< TAMANHO IDEAL */
-    height: auto;
+    width: 60px;
+    height: 60px;
+
+    background-image: url("corvo-animado.png");
+    background-size: 240px 60px; /* 4 frames (4×60 = 240) */
+    animation: voar 0.35s steps(4) infinite;
+
     cursor: pointer;
     user-select: none;
-    pointer-events: auto;
 }
+@keyframes voar {
+    from { background-position: 0px; }
+    to   { background-position: -240px; }
+}
+
 
 
 #player {
