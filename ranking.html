@@ -5,14 +5,13 @@
     <title>Ranking Global - Farm Defender</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<body>
 
-<body class="ranking-bg">
+<h1 class="ranking-titulo">Ranking Global</h1>
 
 <div class="ranking-quadro">
 
-    <h1 class="ranking-title">Ranking Global</h1>
-
-    <table class="ranking-tabela">
+    <table class="ranking_tabela">
         <thead>
             <tr>
                 <th>Posição</th>
@@ -21,10 +20,17 @@
             </tr>
         </thead>
 
-        <tbody id="rankingLista"></tbody>
+        <tbody>
+            <tr>
+                <td colspan="3">
+                    <div id="rankingLista"></div>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
     <button class="btn-voltar" onclick="window.location.href='menu.html'">Voltar</button>
+
 </div>
 
 <!-- Firebase -->
@@ -33,20 +39,6 @@
 
 <script src="firebase.js"></script>
 <script src="ranking.js"></script>
-
-<script>
-carregarRanking(lista => {
-    const tbody = document.getElementById("rankingLista");
-
-    tbody.innerHTML = lista.map((jogador, i) => `
-        <tr>
-            <td>${i+1}º</td>
-            <td>${jogador.nick}</td>
-            <td>${jogador.pontos}</td>
-        </tr>
-    `).join("");
-});
-</script>
 
 </body>
 </html>
