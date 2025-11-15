@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Farm Defender - Jogo</title>
-    <link rel="stylesheet" href="styles-game.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <!-- CAIXA DO JOGO (ISOLADA DO RESTO DO SITE) -->
     <div class="game-wrapper">
 
         <div id="hud">
@@ -23,14 +22,17 @@
 
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Firebase Core -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 
+    <!-- Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!-- Seu arquivo Firebase -->
     <script src="firebase.js"></script>
+
+    <!-- Jogo -->
     <script src="jogo.js"></script>
+
 </body>
 </html>
-
-
-
-
