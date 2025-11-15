@@ -2,22 +2,42 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farm Defender - Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="login-bg">
-    <div class="container">
-        <div class="tela" style="position: relative;">
-            <img src="login.png" class="login-logo" alt="Logo Farm Defender">
+<body>
 
-            <h1 class="menu-title">Bem-vindo ao Farm Defender</h1>
-            <p class="menu-user">Informe seu nick para jogar:</p>
+    <div class="login-container">
 
-            <input type="text" id="inputNick" placeholder="Seu nick aqui">
-            <span id="erroLogin" class="erro">Digite um nick válido.</span>
+        <!-- LOGO -->
+        <img src="logo.png" class="logo" alt="Farm Defender Logo">
 
-            <button id="btnEntrar">Entrar</button>
+        <!-- TÍTULO -->
+        <h1>Bem-vindo(a) ao Farm Defender</h1>
+
+        <!-- LOGIN FORM -->
+        <div id="loginForm" class="card">
+
+            <input type="text" id="nickLogin" placeholder="Seu Nick">
+            <input type="password" id="senhaLogin" placeholder="Senha">
+
+            <button class="btn" onclick="login()">Entrar</button>
+
+            <p class="link" onclick="abrirCadastro()">Criar conta</p>
         </div>
+
+        <!-- CADASTRO FORM -->
+        <div id="cadastroForm" class="card hidden">
+
+            <input type="text" id="nickNovo" placeholder="Novo Nick">
+            <input type="password" id="senhaNova" placeholder="Nova senha">
+
+            <button class="btn" onclick="cadastrar()">Cadastrar</button>
+
+            <p class="link" onclick="fecharCadastro()">Voltar ao login</p>
+        </div>
+
     </div>
 
     <script src="login.js"></script>
