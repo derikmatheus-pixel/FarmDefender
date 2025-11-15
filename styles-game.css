@@ -32,28 +32,29 @@
     overflow: hidden;
     position: relative;
 }
+/* Base dos inimigos (se já existir algo parecido, reaproveite) */
+.inimigo {
+    position: absolute;
+    image-rendering: pixelated;
+}
 
+/* Corvo animado */
 .corvo {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-
+    width: 32px;   /* LARGURA de 1 frame */
+    height: 32px;  /* ALTURA de 1 frame */
     background-image: url("corvo-animado.png");
-    background-size: 240px 60px; /* largura total = 4 frames × 60px */
-    animation: voar 0.35s steps(4) infinite;
-
-    cursor: pointer;
-    user-select: none;
+    background-repeat: no-repeat;
+    animation: corvo-voando 0.4s steps(4) infinite;
 }
 
-@keyframes voar {
-    from { background-position: 0px; }
-    to   { background-position: -240px; }
-}
-
-#player {
-    position: absolute;
-    width: 40px;
+/* Animação do sprite: 4 frames na horizontal */
+@keyframes corvo-voando {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -128px 0;  /* 4 * 32 = 128 (largura total do sprite) */
+    }
 }
 
 #btnlogout {
