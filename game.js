@@ -21,7 +21,7 @@ function spawnCriatura() {
 
     const maxX = cenario.clientWidth - 45;
 
-    // SOMENTE DO MEIO PARA BAIXO
+    // Criaturas aparecem da metade para baixo
     const minY = cenario.clientHeight * 0.45;
     const maxY = cenario.clientHeight - 60;
 
@@ -36,6 +36,7 @@ function spawnCriatura() {
 
     cenario.appendChild(criatura);
 
+    // Se não clicar → perde vida
     setTimeout(() => {
         if (criatura.parentNode) {
             criatura.remove();
@@ -51,21 +52,24 @@ function iniciarJogo() {
 
 function perderVida() {
     vidas--;
+    
+    if (vidas < 0) vidas = 0;
+    
     mostrarHUD();
 
-    if (vidas <= 0) {
+    if (vidas === 0) {
         finalizarJogo();
     }
 }
 
 function finalizarJogo() {
     clearInterval(spawnInterval);
-    salvarRanking();  // agora salva no Firebase
+    salvarRanking();
     window.location.href = "ranking.html";
 }
 
 function salvarRanking() {
-    salvarPontuacao(jogador, pontos);  // AQUI — RANK GLOBAL
+    salvarPontuacao(jogador, pontos); // Salva no Firebase
 }
 
 document.getElementById("btnLogout").onclick = () => {
