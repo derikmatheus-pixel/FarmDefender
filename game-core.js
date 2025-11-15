@@ -1,29 +1,58 @@
-let jogador = localStorage.getItem("usuarioLogadoFarm");
-if (!jogador) window.location.href = "index.html";
+// game-core.js
 
 let pontos = 0;
 let vidas = 3;
-let rodando = true;
+let rodando = false;
 
-let corvos = [];
-let fazendeiro = null;
-let spawnInterval = null;
+// loops
+let loopMoverCorvos = null;
+let loopSpawnCorvos = null;
+let loopAnimarCorvos = null;
+
+function iniciarJogo() {
+    const cenario = document.getElementById("cenario");
+    cenario.innerHTML = "";          // limpa inimigos antigos
+
+    pontos = 0;
+    vidas = 3;
+    rodando = true;
+
+    criarPlayer();
+    atualizarHUD();
+    iniciarLoops();
+}
+
+function iniciarLoops() {
+    pararLoops(); // garante que não tenha duplicado
+
+    loopMoverCorvos = setInterval(moverCorvos, 16);     // ~60 FPS
+    loopSpawnCorvos = setInterval(spawnCorvo, 1000);    // 1 corvo/segundo
+    loopAnimarCorvos = setInterval(animarCorvos, 120);  // animação
+}
+
+function pararLoops() {
+    if (loopMoverCorvos) clearInterval(loopMoverCorvos);
+    if (loopSpawnCorvos) clearInterval(loopSpawnCorvos);
+    if (loopAnimarCorvos) clearInterval(loopAnimarCorvos);
+
+    loopMoverCorvos = null;
+    loopSpawnCorvos = null;
+    loopAnimarCorvos = null;
+}
 
 function perderVida() {
+    if (!rodando) return;
+
     vidas--;
     atualizarHUD();
 
-    if (vidas <= 0) finalizarJogo();
-}
+    if (vidas <= 0) {
+        rodando = false;
+        pararLoops();
 
-function finalizarJogo() {
-    rodando = false;
+        // Aqui você pode salvar no Firebase se quiser
+        // salvarPontuacaoNoRanking(jogador, pontos);
 
-    clearInterval(spawnInterval);
-
-    corvos.forEach(c => c.remove());
-    corvos = [];
-
-    salvarPontuacao(jogador, pontos)
-        .finally(() => window.location.href = "ranking.html");
+        alert("Game Over! Pontos: " + pontos);
+    }
 }
