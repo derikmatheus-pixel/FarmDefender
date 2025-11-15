@@ -1,46 +1,49 @@
-/* =====================================================
-   ÁREA DO JOGO CORRIGIDA
-   (Centralização, tamanho fixo e alinhamento perfeito)
-===================================================== */
+/* ============================
+   ÁREA DO JOGO — CENTRALIZADA
+============================ */
 
-.game-container {
+.game-wrapper {
     width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    justify-content: flex-start;
 
+    gap: 15px;
     padding: 20px;
-    border-radius: 12px;
 
     background: rgba(0,0,0,0.35);
     backdrop-filter: blur(4px);
 
-    box-shadow: 0 0 12px rgba(0,0,0,0.35);
+    border-radius: 12px;
+    box-shadow: 0 0 14px rgba(0,0,0,0.5);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
 }
 
 /* HUD */
 #hud {
     display: flex;
-    justify-content: center;
     gap: 40px;
+    color: white;
     font-size: 22px;
     font-weight: bold;
-    color: white;
 }
 
-/* Área onde os corvos caem */
+/* Cenário */
 #cenario {
     width: 600px;
     height: 380px;
-
     background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(255,255,255,0.3);
-
-    position: relative;
-    overflow: hidden;
-
+    border: 2px solid rgba(255,255,255,0.35);
     border-radius: 10px;
+
+    overflow: hidden;
+    position: relative;
 }
 
 /* Corvos */
@@ -48,40 +51,33 @@
     position: absolute;
     width: 45px;
     cursor: pointer;
-    user-select: none;
 }
 
 /* Fazendeiro */
 #player {
     position: absolute;
     width: 40px;
-    user-select: none;
 }
 
 /* Botão Sair */
 #btnlogout {
-    padding: 12px 35px;
+    padding: 10px 30px;
     font-size: 17px;
-    margin-top: 10px;
-    font-weight: bold;
     background: #b30000;
     color: white;
-
     border: none;
     border-radius: 8px;
     cursor: pointer;
 }
-
 #btnlogout:hover {
     background: #e00000;
 }
 
 /* Responsivo */
 @media(max-width: 650px) {
-    .game-container {
-        width: 95%;
+    .game-wrapper {
+        width: 90%;
     }
-
     #cenario {
         width: 100%;
         height: 300px;
