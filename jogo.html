@@ -2,15 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farm Defender - Jogo</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
     <div class="game-wrapper">
-
         <div id="hud">
             <span id="hudPontos">Pontos: 0</span>
             <span id="hudVidas">Vidas: 3</span>
@@ -18,13 +16,15 @@
 
         <div id="cenario"></div>
 
-        <button id="btnlogout">Sair</button>
-
+        <button id="btnLogout">Sair</button>
     </div>
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<script src="firebase.js"></script>
+
+    <div id="versao">Versão atual 1.20</div>
+
+    <!-- Firebase (mantenha seu config real aqui) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="firebase.js"></script>
 
     <!-- Módulos do jogo -->
     <script src="game-core.js"></script>
@@ -34,17 +34,5 @@
     <script src="game-events.js"></script>
     <script src="game-start.js"></script>
 
-    <div id="versao">Versão atual 1.21</div>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
