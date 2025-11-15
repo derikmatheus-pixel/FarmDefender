@@ -12,11 +12,13 @@ let spawnInterval = null;
 function perderVida() {
     vidas--;
     atualizarHUD();
+
     if (vidas <= 0) finalizarJogo();
 }
 
 function finalizarJogo() {
     rodando = false;
+
     clearInterval(spawnInterval);
 
     corvos.forEach(c => c.remove());
