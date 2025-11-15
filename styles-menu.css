@@ -10,60 +10,70 @@ body {
     width: 100%;
     min-height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.menu-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 24px 18px 28px;
+    border-radius: 14px;
+    box-sizing: border-box;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 25px;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(3px);
 }
 
 .menu-logo {
     width: 260px;
     max-width: 90%;
-    margin-bottom: 10px;
+    height: auto;
+    margin-bottom: 16px;
 }
 
 .menu-titulo {
-    color: white;
+    color: #ffffff;
     font-size: 22px;
-    margin-top: 5px;
+    margin: 0 0 4px 0;
 }
 
-#menuJogador {
-    color: #fff;
-    margin-bottom: 25px;
+.menu-jogador {
+    color: #ffffff;
     font-size: 18px;
+    margin: 0 0 20px 0;
 }
 
-.menu-box {
-    display: flex;
-    flex-direction: column;
+.menu-botoes {
     width: 100%;
     max-width: 320px;
-    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.btn-menu {
-    padding: 18px;
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
     border: none;
-    border-radius: 10px;
-    background: #ff9800;
-    color: white;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.25);
+    background-color: #ff9a22;
+    color: #ffffff;
+    transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
-.btn-menu:active {
-    background: #e68900;
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
 
-.btn-menu.sair {
-    background: #d9534f;
-}
-
-.btn-menu.sair:active {
-    background: #c8403c;
+.btn-sair {
+    background-color: #d9534f;
 }
