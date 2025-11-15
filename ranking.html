@@ -2,31 +2,63 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Farm Defender - Ranking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking - Farm Defender</title>
     <link rel="stylesheet" href="styles-ranking.css">
 </head>
-<body class="ranking-bg">
-    <div class="ranking-quadro">
-        <h1 class="ranking-title">Ranking</h1>
+<body>
 
-        <table class="ranking-tabela" id="rankingTabela">
-            <thead>
-                <tr>
-                    <th>Posição</th>
-                    <th>Jogador</th>
-                    <th>Pontos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- preenchido pelo JS -->
-            </tbody>
-        </table>
+    <div class="rank-container">
 
-        <button class="btn-voltar" id="btnVoltar">Voltar ao Menu</button>
+        <img src="logo.png" class="rank-logo">
+
+        <h2 class="rank-title">Top 10 Jogadores</h2>
+
+        <div class="rank-lista" id="rankList"></div>
+
+        <button class="btn-voltar" onclick="voltar()">Voltar</button>
+
     </div>
 
-    <script src="firebase.js"></script>
-    <script src="ranking.js"></script>
+    <script>
+        function carregarRanking() {
+            let ranking = JSON.parse(localStorage.getItem("rankingFarm")) || [];
+
+            ranking.sort((a, b) => b.pontos - a.pontos);
+            ranking = ranking.slice(0, 10);
+
+            const box = document.getElementById("rankList");
+            box.innerHTML = "";
+
+            if (ranking.length === 0) {
+                box.innerHTML = "<p>Nenhum jogador ainda.</p>";
+                return;
+            }
+
+            ranking.forEach((item, i) => {
+                let medalha = "";
+
+                if (i === 0) medalha = "🥇 ";
+                else if (i === 1) medalha = "🥈 ";
+                else if (i === 2) medalha = "🥉 ";
+
+                box.innerHTML += `
+                    <p class="rank-item ${
+                        i === 0 ? 'rank-first' :
+                        i === 1 ? 'rank-second' :
+                        i === 2 ? 'rank-third' : ''
+                    }">
+                        ${medalha}${i+1}. ${item.nick} — ${item.pontos} pts
+                    </p>`;
+            });
+        }
+
+        function voltar() {
+            window.location.href = "index.html";
+        }
+
+        carregarRanking();
+    </script>
+
 </body>
 </html>
-
