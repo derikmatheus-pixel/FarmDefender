@@ -1,49 +1,44 @@
-// game-player.js
+// ==========================
+// JOGADOR / FAZENDEIROS
+// ==========================
 
-function criarFazendeiro() {
-    const cenario = document.getElementById("cenario");
-    if (!cenario) return;
+window.GamePlayer = {
+    adicionarFazendeiro: function (linha) {
+        const s = Game.state;
+        const cfg = Game.config;
+        const cenario = Game.dom.cenario;
 
-    // evita duplicar
-    if (fazendeiro && cenario.contains(fazendeiro)) return;
+        if (!cenario) return;
 
-    fazendeiro = document.createElement("img");
-    fazendeiro.id = "player";
-    fazendeiro.src = "fazendeiro.png";
+        // Impede dois fazendeiros na mesma linha
+        if (s.fazendeiros.some(f => f.linha === linha)) {
+            alert("Já existe um fazendeiro nessa linha!");
+            return;
+        }
 
-    cenario.appendChild(fazendeiro);
+        const fazendeiro = document.createElement("img");
+        fazendeiro.src = "fazendeiro.png";  // imagem do fazendeiro
+        fazendeiro.classList.add("fazendeiro");
+        fazendeiro.style.position = "absolute";
 
-    const largura = cenario.clientWidth;
-    const altura = cenario.clientHeight;
+        const posXFixo = 80; // distância da borda esquerda (ajuste depois)
+        fazendeiro.style.left = posXFixo + "px";
+        fazendeiro.style.top  = cfg.LINHAS_Y[linha] + "px";
 
-    const posX = (largura - 40) / 2;
-    const posY = altura - 60;
+        cenario.appendChild(fazendeiro);
 
-    fazendeiro.style.left = posX + "px";
-    fazendeiro.style.top = posY + "px";
-}
+        // Alcance horizontal: quando o corvo passar deste X indo para a esquerda ele é defendido
+        const alcanceX = cenario.clientWidth - 150; // ajuste fino no teste
 
-// movimentação simples esquerda/direita
-document.addEventListener("keydown", function (e) {
-    if (!fazendeiro || !rodando) return;
-
-    const cenario = document.getElementById("cenario");
-    const passo = 10;
-
-    let x = parseInt(fazendeiro.style.left);
-    if (isNaN(x)) x = 0;
-
-    if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
-        x -= passo;
-    } else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
-        x += passo;
-    } else {
-        return;
+        s.fazendeiros.push({
+            elemento: fazendeiro,
+            linha: linha,
+            alcanceX: alcanceX
+        });
     }
+};
 
-    const maxX = cenario.clientWidth - fazendeiro.clientWidth;
-    if (x < 0) x = 0;
-    if (x > maxX) x = maxX;
-
-    fazendeiro.style.left = x + "px";
-});
+// Atalho global para usar no HTML: onclick="adicionarFazendeiro(0)"
+function adicionarFazendeiro(linha) {
+    GamePlayer.adicionarFazendeiro(linha);
+}
