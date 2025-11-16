@@ -44,3 +44,10 @@ body {
     justify-content: center;
     gap: 10px;
 }
+.projetil {
+    width: 12px;
+    height: 4px;
+    background: yellow;   /* projétil simples, tipo laser */
+    border-radius: 2px;
+    pointer-events: none;
+}
