@@ -4,34 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Farm Defender - Login</title>
+
+    <!-- LEGENDA: CSS específico da tela de login -->
     <link rel="stylesheet" href="styles-login.css">
 </head>
 <body>
 
+    <!-- LEGENDA: Container principal centralizando tudo na tela -->
     <div class="container">
 
+        <!-- LEGENDA: Logo do jogo -->
         <img src="logo.png" class="logo">
 
+        <!-- LEGENDA: Caixa de LOGIN (área padrão ao abrir o index) -->
         <div id="loginBox" class="box">
+            <!-- LEGENDA: Campo Nick do login -->
             <input type="text" id="loginNick" placeholder="Seu nick">
+
+            <!-- LEGENDA: Campo Senha do login -->
             <input type="password" id="loginSenha" placeholder="Senha">
+
+            <!-- LEGENDA: Botão que chama a função login() no login.js -->
             <button onclick="login()" class="btn">Entrar</button>
+
+            <!-- LEGENDA: Link para abrir a área de cadastro -->
             <p class="link" onclick="abrirCadastro()">Criar conta</p>
+
+            <!-- LEGENDA (OPCIONAL): Se quiser, pode trazer o botão de ranking também para o login
+            <button class="btn-ranking" onclick="abrirRanking()">Ranking ⭐</button>
+            -->
         </div>
 
+        <!-- LEGENDA: Caixa de CADASTRO (fica escondida até clicar em "Criar conta") -->
         <div id="cadastroBox" class="box hidden">
-            <input type="text" id="cadNick" placeholder="Novo nick">
-            <input type="password" id="cadSenha" placeholder="Nova senha">
-            <button onclick="cadastrar()" class="btn">Cadastrar</button>
-            <p class="link" onclick="abrirLogin()">Voltar ao login</p>
-            <button class="btn-ranking" onclick="abrirRanking()">Ranking ⭐</button>
 
+            <!-- LEGENDA: Campo Nick para NOVO cadastro -->
+            <input type="text" id="cadNick" placeholder="Novo nick">
+
+            <!-- LEGENDA: Campo Senha para NOVO cadastro -->
+            <input type="password" id="cadSenha" placeholder="Nova senha">
+
+            <!-- LEGENDA: Botão que chama cadastrar() no login.js -->
+            <button onclick="cadastrar()" class="btn">Cadastrar</button>
+
+            <!-- LEGENDA: Voltar para a tela de login -->
+            <p class="link" onclick="abrirLogin()">Voltar ao login</p>
+
+            <!-- LEGENDA: Botão de acesso ao ranking -->
+            <button class="btn-ranking" onclick="abrirRanking()">Ranking ⭐</button>
         </div>
 
     </div>
 
+    <!-- LEGENDA: Arquivo JS que controla login, cadastro e navegação -->
     <script src="login.js"></script>
 </body>
 </html>
-
-
