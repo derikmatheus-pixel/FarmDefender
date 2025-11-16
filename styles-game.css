@@ -1,70 +1,46 @@
-.game-wrapper {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 20px;
-    background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(4px);
-    border-radius: 12px;
-    box-shadow: 0 0 14px rgba(0,0,0,0.5);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+body {
+    background: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
 }
 
 #hud {
     display: flex;
-    gap: 40px;
-    color: white;
-    font-size: 22px;
+    justify-content: center;
+    gap: 30px;
+    padding: 10px 0;
     font-weight: bold;
 }
 
-/* CENÁRIO (garante posição relativa e que nada saia da área) */
 #cenario {
     width: 600px;
-    height: 380px;
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 10px;
-    overflow: hidden;
+    height: 320px;
+    margin: 0 auto;
+    background: url("fundo.png") center center no-repeat;
+    background-size: cover;
+    border: 2px solid #333;
     position: relative;
+    overflow: hidden;
 }
 
-/* CORVO ANIMADO */
-.corvo {
-    position: absolute;
+/* Criaturas (corvos) */
+.criatura {
     width: 48px;
     height: 48px;
-    image-rendering: pixelated;
-    cursor: pointer;
-    user-select: none;
+    pointer-events: none;
 }
 
-
-#btnlogout {
-    padding: 10px 30px;
-    font-size: 17px;
-    background: #b30000;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+/* Fazendeiros */
+.fazendeiro {
+    width: 48px;
+    height: 48px;
 }
 
-#btnlogout:hover {
-    background: #e00000;
-}
-
-@media(max-width: 650px) {
-    .game-wrapper {
-        width: 90%;
-    }
-    #cenario {
-        width: 100%;
-        height: 300px;
-    }
+#painel-fazendeiro {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
