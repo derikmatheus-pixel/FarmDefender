@@ -5,10 +5,13 @@
 window.Game = {
     // Configurações do jogo
     config: {
-        LINHAS_Y: [80, 160, 240], // posições Y das “faixas” (ajuste no CSS)
-        VELOCIDADE_CORVO: 0.15,   // px por ms (0.15 ≈ 9 px/seg)
-        INTERVALO_SPAWN: 1500,    // tempo entre spawns (ms)
-        VIDAS_INICIAIS: 3
+        LINHAS_Y: [80, 160, 240], // posições Y das “faixas”
+        VELOCIDADE_CORVO: 0.15,   // px por ms
+        INTERVALO_SPAWN: 1500,    // ms entre criaturas
+        VIDAS_INICIAIS: 3,
+
+        VELOCIDADE_PROJETIL: 0.35, // px por ms (projétil mais rápido)
+        INTERVALO_TIRO: 900        // ms entre tiros de cada fazendeiro
     },
 
     // Estado atual do jogo
@@ -16,7 +19,8 @@ window.Game = {
         pontos: 0,
         vidas: 3,
         criaturas: [],   // { elemento, x, linha }
-        fazendeiros: [], // { elemento, linha, alcanceX }
+        fazendeiros: [], // { elemento, linha, x, tempoTiro }
+        projeteis: [],   // { elemento, x, linha }
         jogoRodando: false,
         ultimoFrame: 0,
         spawnInterval: null
@@ -48,12 +52,14 @@ window.Game = {
     iniciarJogo: function () {
         const s = this.state;
 
-        // Remove tudo que já existia
+        // Remove criaturas, fazendeiros e projéteis antigos
         s.criaturas.forEach(c => c.elemento.remove());
         s.fazendeiros.forEach(f => f.elemento.remove());
+        s.projeteis.forEach(p => p.elemento.remove());
 
         s.criaturas = [];
         s.fazendeiros = [];
+        s.projeteis = [];
         s.pontos = 0;
         s.vidas = this.config.VIDAS_INICIAIS;
         GameHud.atualizarHUD();
@@ -84,6 +90,7 @@ window.Game = {
         s.ultimoFrame = timestamp;
 
         GameEnemies.atualizarCriaturas(delta);
+        GamePlayer.atualizarProjeteis(delta); // projéteis e tiros
 
         requestAnimationFrame(Game.loop);
     },
