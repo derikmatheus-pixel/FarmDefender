@@ -46,10 +46,7 @@ window.GameEnemies = {
             c.x -= vel * delta;
             c.elemento.style.left = c.x + "px";
 
-            // Verifica se foi defendido pelo fazendeiro
-            GameEvents.verificarDefesaLinha(c, i);
-
-            // Se passou totalmente pela borda esquerda, perdeu a defesa
+            // Se passou totalmente pela borda esquerda, jogador perde vida
             if (c.x < -50) {
                 GameEvents.corvoPassouLinha(i);
             }
