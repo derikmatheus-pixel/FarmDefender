@@ -1,149 +1,67 @@
-// game-enemies.js
+// ==========================
+// INIMIGOS / CRIATURAS
+// ==========================
 
-// Tamanho das imagens do corvo (48x48)
-const CORVO_LARGURA = 48;
-const CORVO_ALTURA  = 48;
+window.GameEnemies = {
+    spawnCriatura: function () {
+        const s   = Game.state;
+        const cfg = Game.config;
+        const cenario = Game.dom.cenario;
 
-// Frames da animação (3 pngs)
-const CORVO_FRAMES = [
-    "corvo1.png",
-    "corvo2.png",
-    "corvo3.png"
-];
+        if (!s.jogoRodando || !cenario) return;
 
-// NÃO DECLARE "let corvos = []" AQUI!
-// Estamos usando o "corvos" global do game-core.js
+        const larguraCenario = cenario.clientWidth;
 
-let corvoFrameGlobal = 0;
+        // Escolhe linha aleatória (0, 1, 2...)
+        const linha = Math.floor(Math.random() * cfg.LINHAS_Y.length);
 
-// Cria um corvo novo
-function spawnCriatura() {
-    const cenario = document.getElementById("cenario");
+        const criatura = document.createElement("img");
+        criatura.src = "corvo.png";           // imagem do inimigo
+        criatura.classList.add("criatura");
+        criatura.style.position = "absolute";
 
-    const criatura = document.createElement("img");
-    // começa com o primeiro frame do corvo
-    criatura.src = "corvo1.png";
-    criatura.classList.add("criatura");
+        const posXInicial = larguraCenario;   // começa na borda direita
+        criatura.style.left = posXInicial + "px";
+        criatura.style.top  = cfg.LINHAS_Y[linha] + "px";
 
-    // posição inicial: LADO DIREITO da tela
-    const larguraCorvo = 48;
-    const alturaCorvo = 48;
+        cenario.appendChild(criatura);
 
-    // X começa no lado direito (fora um pouco da tela)
-    let posX = cenario.clientWidth; // começa “entrando” pela direita
+        s.criaturas.push({
+            elemento: criatura,
+            x: posXInicial,
+            linha: linha
+        });
+    },
 
-    // Y aleatório (da metade para cima / baixo você decide)
-    const minY = cenario.clientHeight * 0.2;
-    const maxY = cenario.clientHeight * 0.7;
-    const posY = Math.random() * (maxY - minY) + minY;
+    atualizarCriaturas: function (delta) {
+        const s   = Game.state;
+        const cfg = Game.config;
 
-    criatura.style.left = posX + "px";
-    criatura.style.top = posY + "px";
+        const vel = cfg.VELOCIDADE_CORVO; // px/ms
 
-    cenario.appendChild(criatura);
+        for (let i = s.criaturas.length - 1; i >= 0; i--) {
+            const c = s.criaturas[i];
 
-    // ANIMAÇÃO DO CORVO (troca de sprites)
-    const framesCorvo = ["corvo1.png", "corvo2.png", "corvo3.png"];
-    let frameIndex = 0;
+            // Move da direita para a esquerda
+            c.x -= vel * delta;
+            c.elemento.style.left = c.x + "px";
 
-    // quanto MAIOR esse valor, mais LENTA a animação (em ms)
-    const intervaloFrames = 160; 
+            // Verifica se foi defendido pelo fazendeiro
+            GameEvents.verificarDefesaLinha(c, i);
 
-    const animacaoFrame = setInterval(() => {
-        frameIndex = (frameIndex + 1) % framesCorvo.length;
-        criatura.src = framesCorvo[frameIndex];
-    }, intervaloFrames);
-
-    // MOVIMENTO HORIZONTAL: direita -> esquerda
-    const velocidade = 3; // px por “tick” – se quiser mais rápido, aumente
-
-    const movimento = setInterval(() => {
-        posX -= velocidade;
-        criatura.style.left = posX + "px";
-
-        // se sair totalmente da tela pela esquerda, remove
-        if (posX < -larguraCorvo) {
-            clearInterval(movimento);
-            clearInterval(animacaoFrame);
-            if (criatura.parentNode) {
-                criatura.parentNode.removeChild(criatura);
-            }
-
-            // aqui é onde você tira uma vida, se quiser
-            vidas--;
-            mostrarHUD();
-            if (vidas <= 0) {
-                fimDeJogo();
+            // Se passou totalmente pela borda esquerda, perdeu a defesa
+            if (c.x < -50) {
+                GameEvents.corvoPassouLinha(i);
             }
         }
-    }, 16); // ~60fps
+    },
 
-    // CLIQUE NO CORVO (matar o corvo)
-    criatura.addEventListener("click", () => {
-        // pontuação
-        pontos += 10;
-        mostrarHUD();
+    removerCriatura: function (indice) {
+        const s = Game.state;
+        const c = s.criaturas[indice];
+        if (!c) return;
 
-        clearInterval(movimento);
-        clearInterval(animacaoFrame);
-
-        if (criatura.parentNode) {
-            criatura.parentNode.removeChild(criatura);
-        }
-    });
-}
-
-
-// Move todos os corvos para baixo
-function moverCorvos() {
-    if (!rodando) return;
-
-    const cenario = document.getElementById("cenario");
-    if (!cenario) return;
-
-    const limiteY = cenario.clientHeight;
-
-    for (let i = corvos.length - 1; i >= 0; i--) {
-        const corvo = corvos[i];
-
-        let y = parseInt(corvo.style.top);
-        if (isNaN(y)) y = -CORVO_ALTURA;
-
-        y += 2; // velocidade
-        corvo.style.top = y + "px";
-
-        if (y > limiteY) {
-            corvo.remove();
-            corvos.splice(i, 1);
-            perderVida();
-        }
+        c.elemento.remove();
+        s.criaturas.splice(indice, 1);
     }
-}
-
-// Anima os frames (troca entre corvo1, corvo2, corvo3)
-function animarCorvos() {
-    if (!rodando) return;
-    if (corvos.length === 0) return;
-
-    corvoFrameGlobal = (corvoFrameGlobal + 1) % CORVO_FRAMES.length;
-    const frameSrc = CORVO_FRAMES[corvoFrameGlobal];
-
-    corvos.forEach(corvo => {
-        corvo.src = frameSrc;
-    });
-}
-
-// Quando mata o corvo
-function matarCorvo(corvo) {
-    if (!rodando) return;
-
-    pontos++;
-    atualizarHUD();
-
-    const idx = corvos.indexOf(corvo);
-    if (idx !== -1) {
-        corvos.splice(idx, 1);
-    }
-
-    corvo.remove();
-}
+};
