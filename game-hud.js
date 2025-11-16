@@ -1,9 +1,19 @@
-// game-hud.js
+// ==========================
+// HUD (pontos e vidas)
+// ==========================
 
-function atualizarHUD() {
-    const spanPontos = document.getElementById("hudPontos");
-    const spanVidas = document.getElementById("hudVidas");
+window.GameHud = {
+    atualizarHUD: function () {
+        if (!window.Game) return;
 
-    if (spanPontos) spanPontos.textContent = "Pontos: " + pontos;
-    if (spanVidas) spanVidas.textContent = "Vidas: " + vidas;
-}
+        const s  = Game.state;
+        const dom = Game.dom;
+
+        if (dom.hudPontos) {
+            dom.hudPontos.innerText = "Pontos: " + s.pontos;
+        }
+        if (dom.hudVidas) {
+            dom.hudVidas.innerText = "Vidas: " + s.vidas;
+        }
+    }
+};
